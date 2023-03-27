@@ -1,6 +1,6 @@
 package github.mik0war.hinote.data
 
-import github.mik0war.hinote.domain.NoteRepository
+import github.mik0war.hinote.domain.repository.NoteRepository
 import github.mik0war.hinote.data.cache.CacheDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

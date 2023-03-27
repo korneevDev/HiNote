@@ -2,7 +2,7 @@ package github.mik0war.hinote
 
 import github.mik0war.hinote.data.BaseNoteRepositoryImpl
 import github.mik0war.hinote.data.NoteDAO
-import github.mik0war.hinote.core.TestCacheDataSource
+import github.mik0war.hinote.core.MockCacheDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -17,7 +17,7 @@ class BaseNoteRepositoryImplUnitTest {
             NoteDAO(0, "test Header 1", "Test Body 1"),
             NoteDAO(1, "test Header 2", "Test Body 2")
         )
-        val repository = BaseNoteRepositoryImpl(TestCacheDataSource())
+        val repository = BaseNoteRepositoryImpl(MockCacheDataSource())
 
         repository.saveNode(NoteDAO(0, "test Header 1", "Test Body 1"))
         repository.saveNode(NoteDAO(1, "test Header 2", "Test Body 2"))

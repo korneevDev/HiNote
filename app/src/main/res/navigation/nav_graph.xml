@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/NoteListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="github.mik0war.hinote.presentation.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/NoteListFragment"
+        android:name="github.mik0war.hinote.presentation.NoteListFragment"
+        android:label="@string/note_list_fragment_label"
+        tools:layout="@layout/fragment_note_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/NoteCreateFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="github.mik0war.hinote.presentation.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/NoteCreateFragment"
+        android:name="github.mik0war.hinote.presentation.CreateNoteFragment"
+        android:label="@string/note_create_fragment_label"
+        tools:layout="@layout/fragment_create_note">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/NoteListFragment" />
     </fragment>
 </navigation>

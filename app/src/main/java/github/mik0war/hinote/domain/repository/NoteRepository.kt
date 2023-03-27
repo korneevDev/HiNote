@@ -1,4 +1,4 @@
-package github.mik0war.hinote.domain
+package github.mik0war.hinote.domain.repository
 
 import github.mik0war.hinote.data.NoteDAO
 

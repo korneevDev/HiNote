@@ -8,25 +8,24 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.*
 
 class BaseNoteRepositoryImplUnitTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun test() = runTest{
         val expected = listOf(
-            NoteDAO(0, "test Header 1", "Test Body 1"),
-            NoteDAO(1, "test Header 2", "Test Body 2")
+            NoteDAO(0, "test Header 1", "Test Body 1", Date(2023, 3, 29)),
+            NoteDAO(1, "test Header 2", "Test Body 2", Date(2023, 3, 29))
         )
         val repository = BaseNoteRepositoryImpl(MockCacheDataSource())
 
-        repository.saveNode(NoteDAO(0, "test Header 1", "Test Body 1"))
-        repository.saveNode(NoteDAO(1, "test Header 2", "Test Body 2"))
+        repository.saveNote(NoteDAO(0, "test Header 1", "Test Body 1", Date(2023, 3, 29)))
+        repository.saveNote(NoteDAO(1, "test Header 2", "Test Body 2", Date(2023, 3, 29)))
         var actual = repository.getNotesList()
 
         for (i: Int in expected.indices) {
-            assert(expected[i].id == actual[i].id)
-            assert(expected[i].header == actual[i].header)
-            assert(expected[i].body == actual[i].body)
+            assert(expected[i] == actual[i])
         }
 
         repository.removeNote(1)

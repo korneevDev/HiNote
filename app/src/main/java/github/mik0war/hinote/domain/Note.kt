@@ -1,5 +1,6 @@
 package github.mik0war.hinote.domain
 
+import github.mik0war.hinote.core.Mapper
 import java.util.Date
 
 class Note(
@@ -8,6 +9,6 @@ class Note(
     private val body: String,
     private var date: Date
 ){
-    fun map(mapper: Mapper) = mapper.map(id, header, body, date)
+    fun <T>map(mapper: Mapper<T>) = mapper.map(id, header, body, date)
 }
 

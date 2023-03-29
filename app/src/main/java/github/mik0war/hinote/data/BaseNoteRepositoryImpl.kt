@@ -1,6 +1,6 @@
 package github.mik0war.hinote.data
 
-import github.mik0war.hinote.domain.repository.NoteRepository
+import github.mik0war.hinote.domain.NoteRepository
 import github.mik0war.hinote.data.cache.CacheDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,6 @@ class BaseNoteRepositoryImpl(
     private val cacheDataSource: CacheDataSource,
     private val dispatcher: CoroutineDispatcher =  Dispatchers.IO
 ) : NoteRepository {
-
     override suspend fun getNotesList(): List<NoteDAO> = withContext(dispatcher){
         try {
             return@withContext cacheDataSource.getNotesList()
@@ -19,10 +18,6 @@ class BaseNoteRepositoryImpl(
             throw e
         }
     }
-
-    override suspend fun saveNode(note: NoteDAO) = cacheDataSource.save(note)
-
+    override suspend fun saveNote(note: NoteDAO) = cacheDataSource.save(note)
     override suspend fun removeNote(id: Int) = cacheDataSource.remove(id)
-
-
 }

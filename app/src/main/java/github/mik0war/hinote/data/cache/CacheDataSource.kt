@@ -1,9 +1,9 @@
 package github.mik0war.hinote.data.cache
 
-import github.mik0war.hinote.data.NoteDAO
+import github.mik0war.hinote.data.NoteDataModel
 
 interface CacheDataSource {
-    suspend fun getNotesList() : List<NoteDAO>
-    suspend fun save(note: NoteDAO)
+    suspend fun getNotesList() : List<NoteDataModel>
+    suspend fun save(note: NoteDataModel)
     suspend fun remove(id: Int)
 }

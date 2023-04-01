@@ -11,13 +11,13 @@ class BaseNoteRepositoryImpl(
     private val cacheDataSource: CacheDataSource,
     private val dispatcher: CoroutineDispatcher =  Dispatchers.IO
 ) : NoteRepository {
-    override suspend fun getNotesList(): List<NoteDAO> = withContext(dispatcher){
+    override suspend fun getNotesList(): List<NoteDataModel> = withContext(dispatcher){
         try {
             return@withContext cacheDataSource.getNotesList()
         } catch (e: Exception){
             throw e
         }
     }
-    override suspend fun saveNote(note: NoteDAO) = cacheDataSource.save(note)
+    override suspend fun saveNote(note: NoteDataModel) = cacheDataSource.save(note)
     override suspend fun removeNote(id: Int) = cacheDataSource.remove(id)
 }

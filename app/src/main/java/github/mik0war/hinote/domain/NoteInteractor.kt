@@ -1,7 +1,7 @@
 package github.mik0war.hinote.domain
 
 import github.mik0war.hinote.core.Mapper
-import github.mik0war.hinote.data.NoteDAO
+import github.mik0war.hinote.data.NoteDataModel
 import java.util.*
 
 interface NoteInteractor {
@@ -21,7 +21,7 @@ interface NoteInteractor {
     class Base(
         private val repository: NoteRepository,
         private val mapperToNote: Mapper<Note>,
-        private val mapperToDAO: Mapper<NoteDAO>
+        private val mapperToDAO: Mapper<NoteDataModel>
     ) : Abstract() {
 
         override suspend fun getNoteList() =

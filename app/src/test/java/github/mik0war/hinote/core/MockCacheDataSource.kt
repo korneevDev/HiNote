@@ -1,15 +1,15 @@
 package github.mik0war.hinote.core
 
-import github.mik0war.hinote.data.NoteDAO
+import github.mik0war.hinote.data.NoteDataModel
 import github.mik0war.hinote.data.cache.CacheDataSource
 
 class MockCacheDataSource : CacheDataSource {
-    private val list = ArrayList<NoteDAO>()
-    override suspend fun getNotesList(): List<NoteDAO> {
+    private val list = ArrayList<NoteDataModel>()
+    override suspend fun getNotesList(): List<NoteDataModel> {
         return list
     }
 
-    override suspend fun save(note: NoteDAO) {
+    override suspend fun save(note: NoteDataModel) {
         list.add(note)
     }
 

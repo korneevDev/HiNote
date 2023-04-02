@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
 class BaseNoteRepositoryImpl(
     private val cacheDataSource: CacheDataSource,
     private val dispatcher: CoroutineDispatcher =  Dispatchers.IO

@@ -9,4 +9,7 @@
 
     <string name="hello_first_fragment">Notes</string>
     <string name="hello_second_fragment">Create note</string>
+
+    <string name="noNotesExceptionMessage">There are no notes. Create new one</string>
+    <string name="defaultExceptionMessage">Unknown exception</string>
 </resources>

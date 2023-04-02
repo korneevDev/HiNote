@@ -10,7 +10,7 @@ interface NoteInteractor {
 
     class Base(
         private val repository: NoteRepository,
-        private val errorHandler: ErrorHandler,
+        private val exceptionHandler: ExceptionHandler,
         private val mapperToNote: Mapper.ToNote,
         private val mapperToDataModel: Mapper.ToDataModel
     ) : NoteInteractor {
@@ -20,7 +20,7 @@ interface NoteInteractor {
                 it.map(mapperToNote)
             }
         } catch (e: Exception){
-            listOf(errorHandler.handle(e))
+            listOf(exceptionHandler.handle(e))
         }
 
         override suspend fun addNote(id: Int, header: String, body: String, date: Date) =

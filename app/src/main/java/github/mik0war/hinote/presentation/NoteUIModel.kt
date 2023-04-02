@@ -1,14 +1,11 @@
 package github.mik0war.hinote.presentation
 
-import java.util.Date
+class SuccessNoteUIModel(header: String, body: String, dateTime: String) : NoteUIModel(header, body, dateTime)
 
-class SuccessNoteUIModel(header: String, body: String, date: Date) : NoteUIModel(header, body, date)
-
-class FailedNoteUIModel(body: String) : NoteUIModel("", body, Date(1))
+class FailedNoteUIModel(body: String) : NoteUIModel(body=body)
 
 abstract class NoteUIModel(
-    header: String,
+    header: String = "",
     body: String,
-    date: Date
-) {
-}
+    dateTime: String = ""
+)

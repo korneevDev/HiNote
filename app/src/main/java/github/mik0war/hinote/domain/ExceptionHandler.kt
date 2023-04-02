@@ -8,6 +8,7 @@ interface ExceptionHandler {
 
     class Base(private val resourceManager: ResourceManager) : ExceptionHandler {
         override fun handle(e: Exception): NoteModel.Failed {
+
             return when (e) {
                 is NoNotesException -> NoteModel.Failed(
                     resourceManager.getString(R.string.noNotesExceptionMessage)

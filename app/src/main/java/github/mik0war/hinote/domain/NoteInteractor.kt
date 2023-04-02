@@ -1,11 +1,11 @@
 package github.mik0war.hinote.domain
 
 import github.mik0war.hinote.core.Mapper
-import java.util.*
+import github.mik0war.hinote.data.NoteRepository
 
 interface NoteInteractor {
     suspend fun getNoteList(): List<NoteModel>
-    suspend fun addNote(id: Int, header: String, body: String, date: Date)
+    suspend fun addNote(id: Int, header: String, body: String, dateTime: String)
     suspend fun removeNote(id: Int)
 
     class Base(
@@ -23,8 +23,8 @@ interface NoteInteractor {
             listOf(exceptionHandler.handle(e))
         }
 
-        override suspend fun addNote(id: Int, header: String, body: String, date: Date) =
-            repository.saveNote(mapperToDataModel.map(id, header, body, date))
+        override suspend fun addNote(id: Int, header: String, body: String, dateTime: String) =
+            repository.saveNote(mapperToDataModel.map(id, header, body, dateTime))
 
         override suspend fun removeNote(id: Int) {
             repository.removeNote(id)

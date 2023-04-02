@@ -1,7 +1,7 @@
 package github.mik0war.hinote
 
 import github.mik0war.hinote.core.*
-import github.mik0war.hinote.data.BaseNoteRepositoryImpl
+import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.NoteModel
@@ -16,10 +16,10 @@ class BaseNoteInteractorTest {
     @Test
     fun test() = runTest {
         val expected = listOf(
-            NoteModel.Success(0, "test Header 1", "Test Body 1", Date(29031999)),
-            NoteModel.Success(1, "test Header 2", "Test Body 2", Date(29031999))
+            NoteModel.Success(0, "test Header 1", "Test Body 1", "01-03-04"),
+            NoteModel.Success(1, "test Header 2", "Test Body 2", "02-05-06")
         )
-        val repository = BaseNoteRepositoryImpl(MockCacheDataSource())
+        val repository = NoteRepository.Base(MockCacheDataSource())
         val interactor = NoteInteractor.Base(
             repository,
             ExceptionHandler.Base(
@@ -34,8 +34,8 @@ class BaseNoteInteractorTest {
 
         assertEquals(actual[0], expectedError)
 
-        interactor.addNote(0, "test Header 1", "Test Body 1", Date(29031999))
-        interactor.addNote(1, "test Header 2", "Test Body 2", Date(29031999))
+        interactor.addNote(0, "test Header 1", "Test Body 1", "01-03-04")
+        interactor.addNote(1, "test Header 2", "Test Body 2", "02-05-06")
 
         actual = interactor.getNoteList()
 

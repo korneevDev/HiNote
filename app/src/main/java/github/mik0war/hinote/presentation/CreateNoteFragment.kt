@@ -9,9 +9,6 @@ import androidx.navigation.fragment.findNavController
 import github.mik0war.hinote.R
 import github.mik0war.hinote.databinding.FragmentCreateNoteBinding
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class CreateNoteFragment : Fragment() {
 
     private var _binding: FragmentCreateNoteBinding? = null

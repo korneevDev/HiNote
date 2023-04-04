@@ -1,6 +1,7 @@
 package github.mik0war.hinote.data
 
 import github.mik0war.hinote.data.cache.CacheDataSource
+import github.mik0war.hinote.data.model.NoteDataModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

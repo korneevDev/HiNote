@@ -1,6 +1,6 @@
 package github.mik0war.hinote
 
-import github.mik0war.hinote.data.NoteDataModel
+import github.mik0war.hinote.data.model.NoteDataModel
 import github.mik0war.hinote.core.MockCacheDataSource
 import github.mik0war.hinote.data.NoteRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

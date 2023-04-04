@@ -1,6 +1,6 @@
 package github.mik0war.hinote.data.cache
 
-import github.mik0war.hinote.data.NoteDataModel
+import github.mik0war.hinote.data.model.NoteDataModel
 
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>

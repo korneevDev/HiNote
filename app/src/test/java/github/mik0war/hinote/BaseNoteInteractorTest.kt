@@ -4,7 +4,7 @@ import github.mik0war.hinote.core.*
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
-import github.mik0war.hinote.domain.NoteModel
+import github.mik0war.hinote.domain.model.NoteModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -25,8 +25,7 @@ class BaseNoteInteractorTest {
             ExceptionHandler.Base(
                 MockResourceManager()
             ),
-            Mapper.ToNote(),
-            Mapper.ToDataModel()
+            MapperParametrised.ToDataModel()
         )
 
         val expectedError = NoteModel.Failed("No notes")

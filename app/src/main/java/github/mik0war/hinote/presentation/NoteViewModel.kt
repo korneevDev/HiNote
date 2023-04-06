@@ -10,22 +10,19 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-interface NoteViewModel{
-    fun getNotesList()
+interface NoteViewModel {
+    fun getNoteList()
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
 
     class Base(
         private val interactor: NoteInteractor,
-        private val liveData: NotesLiveData,
+        private val liveData: NoteLiveData,
         private val dispatcher: CoroutineDispatcher = Dispatchers.Main
     ) : NoteViewModel, ViewModel() {
-        override fun getNotesList(){
+        override fun getNoteList() {
             viewModelScope.launch(dispatcher) {
-                liveData.showNotesList(
-                    interactor.getNoteList().map {
-                        it.mapTo()
-                    }
-                )
+                val list = interactor.getNoteList().map { it.mapTo() }
+                liveData.showNotesList(list)
             }
         }
 

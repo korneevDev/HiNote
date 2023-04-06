@@ -7,16 +7,16 @@ abstract class NoteUIModel(
     private val text: String,
 ) : Mapper<NoteModel>{
     fun body() = text
-    class SuccessNoteUIModel(
+    data class SuccessNoteUIModel(
         private val id: Int,
         private val header: String,
-        body: String,
+        val body: String,
         private val dateTime: String
     ) : NoteUIModel(body) {
         override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime)
     }
 
-    class Failed(body: String) : NoteUIModel(body) {
+    data class Failed(val body: String) : NoteUIModel(body) {
         override fun mapTo() = NoteModel.Failed(body())
     }
 }

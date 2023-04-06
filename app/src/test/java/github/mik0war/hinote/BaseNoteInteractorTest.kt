@@ -1,20 +1,20 @@
 package github.mik0war.hinote
 
-import github.mik0war.hinote.core.*
+import github.mik0war.hinote.core.MapperParametrised
+import github.mik0war.hinote.core.MockCacheDataSource
+import github.mik0war.hinote.core.MockResourceManager
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.model.NoteModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
 
 class BaseNoteInteractorTest {
-    @OptIn(ExperimentalCoroutinesApi::class)
+
     @Test
-    fun test() = runTest {
+    fun test() = runBlocking {
         val expected = listOf(
             NoteModel.Success(0, "test Header 1", "Test Body 1", "01-03-04"),
             NoteModel.Success(1, "test Header 2", "Test Body 2", "02-05-06")

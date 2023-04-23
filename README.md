@@ -4,8 +4,14 @@ Simple notes to remember important things
 # Principles
 
 - OOP (encapsulation, inheritance, polymorphism)
-- Clean code
+- Clean architecture
+- MVVM
+- SOLID
 - Pattern repository
+--------------------
+- KISS
+- DRY
+- YAGNI
 
 # Technology
 

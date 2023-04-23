@@ -9,6 +9,8 @@ interface NoteLiveData {
     fun showNotesList(notesList: List<NoteUIModel>)
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
 
+    fun getNotesList() : List<NoteUIModel>
+
     class Base : NoteLiveData{
         private val notes = MutableLiveData<List<NoteUIModel>>()
 
@@ -20,5 +22,6 @@ interface NoteLiveData {
             notes.observe(owner, observer)
         }
 
+        override fun getNotesList() = notes.value ?: emptyList()
     }
 }

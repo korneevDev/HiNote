@@ -6,14 +6,14 @@
     android:orientation="horizontal">
 
 
-    <TextView
+    <github.mik0war.hinote.presentation.CustomTextViewImpl
         android:id="@+id/noteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:text="Header" />
 
-    <TextView
+    <github.mik0war.hinote.presentation.CustomTextViewImpl
         android:id="@+id/noteBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         android:ellipsize="end"
         tools:text="Body" />
 
-    <TextView
+    <github.mik0war.hinote.presentation.CustomTextViewImpl
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"

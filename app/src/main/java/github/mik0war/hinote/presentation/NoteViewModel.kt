@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-interface NoteViewModel {
+interface NoteViewModel : GetLiveData {
     fun getNoteList()
     fun createNote(id: Int, header: String, body: String, date: String)
     fun removeNote(id: Int)
@@ -42,5 +42,7 @@ interface NoteViewModel {
         override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             liveData.observe(owner, observer)
         }
+
+        override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()
     }
 }

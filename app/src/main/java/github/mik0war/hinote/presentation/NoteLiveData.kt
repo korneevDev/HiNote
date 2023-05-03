@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import github.mik0war.hinote.presentation.model.NoteUIModel
 
-interface NoteLiveData {
+interface NoteLiveData : GetLiveData{
     fun showNotesList(notesList: List<NoteUIModel>)
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
 
-    fun getNotesList() : List<NoteUIModel>
 
     class Base : NoteLiveData{
         private val notes = MutableLiveData<List<NoteUIModel>>()

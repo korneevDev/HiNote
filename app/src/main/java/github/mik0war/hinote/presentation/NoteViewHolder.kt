@@ -7,7 +7,7 @@ import github.mik0war.hinote.presentation.model.NoteUIModel
 
 class NoteViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val headerTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteHeader)
-    private val bodyTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteHeader)
+    private val bodyTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteBody)
     private val dateTimeTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteDateTime)
     fun bind(item : NoteUIModel) = item.map(headerTextView, bodyTextView, dateTimeTextView)
 }

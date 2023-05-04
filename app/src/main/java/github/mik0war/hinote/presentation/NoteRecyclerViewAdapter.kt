@@ -8,6 +8,11 @@ import github.mik0war.hinote.R
 class NoteRecyclerViewAdapter(
     private val notesLiveData: GetLiveData
 ) : RecyclerView.Adapter<NoteViewHolder>() {
+
+    fun update(){
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.notes_list_object,
             parent, false))
@@ -18,6 +23,4 @@ class NoteRecyclerViewAdapter(
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(notesLiveData.getNotesList()[position])
     }
-
-
 }

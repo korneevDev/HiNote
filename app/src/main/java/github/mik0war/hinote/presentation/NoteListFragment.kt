@@ -18,16 +18,22 @@ class NoteListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel = (requireActivity().application as NotesApp).viewModel
 
-        viewModel.createNote(1, "Header", "body", "00-00-00")
+        viewModel.createNote(1, "kek", "uytrdfgvhbjhkikek", "lol")
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
+        val adapter = NoteRecyclerViewAdapter(viewModel)
+        viewModel.observe(this){
+            adapter.update()
+        }
 
-        recyclerView.adapter = NoteRecyclerViewAdapter(viewModel)
+        recyclerView.adapter = adapter
+
+        viewModel.showNoteList()
     }
 }

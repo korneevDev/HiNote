@@ -37,7 +37,7 @@ class BaseViewModelTest {
             UnconfinedTestDispatcher()
             )
 
-        viewModel.getNoteList()
+        viewModel.showNoteList()
         val expectedList = listOf(NoteUIModel.Failed("No notes"))
         Thread.sleep(100)
         Assert.assertEquals(expectedList, liveData.notesList)

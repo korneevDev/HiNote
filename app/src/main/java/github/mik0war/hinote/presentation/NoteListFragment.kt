@@ -1,43 +1,39 @@
 package github.mik0war.hinote.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
-import github.mik0war.hinote.databinding.FragmentNoteListBinding
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class NoteListFragment : Fragment() {
-
-    private var _binding: FragmentNoteListBinding? = null
-
-    private val binding get() = _binding!!
-
+    private lateinit var viewModel : NoteViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View = inflater.inflate(R.layout.fragment_note_list, container, false)
 
-        _binding = FragmentNoteListBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = (requireActivity().application as NotesApp).viewModel
 
+        viewModel.createNote(1, "kek", "uytrdfgvhbjhkikek", "lol")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.createButton.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
+        val adapter = NoteRecyclerViewAdapter(viewModel)
+        viewModel.observe(this){
+            adapter.update()
         }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        recyclerView.adapter = adapter
+
+        viewModel.showNoteList()
     }
 }

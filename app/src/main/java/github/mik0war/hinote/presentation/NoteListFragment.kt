@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import github.mik0war.hinote.NotesApp
@@ -19,8 +20,6 @@ class NoteListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = (requireActivity().application as NotesApp).viewModel
-
-        viewModel.createNote(1, "kek", "uytrdfgvhbjhkikek", "lol")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,6 +27,7 @@ class NoteListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
         val adapter = NoteRecyclerViewAdapter(viewModel)
+
         viewModel.observe(this){
             adapter.update()
         }
@@ -35,5 +35,12 @@ class NoteListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         viewModel.showNoteList()
+
+        val createButton = view.findViewById<Button>(R.id.createButton)
+
+        var i = 0
+        createButton.setOnClickListener{
+            viewModel.createNote(i, "NoteHeader$i", "NoteBody$i", "NoteDate"+ i++)
+        }
     }
 }

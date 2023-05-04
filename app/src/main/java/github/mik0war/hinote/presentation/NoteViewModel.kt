@@ -31,6 +31,7 @@ interface NoteViewModel : GetLiveData {
             viewModelScope.launch(dispatcher) {
                 interactor.addNote(id, header, body, date)
             }
+            showNoteList()
         }
 
         override fun removeNote(id: Int) {

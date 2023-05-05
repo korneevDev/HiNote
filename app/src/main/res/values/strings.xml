@@ -13,4 +13,5 @@
     <string name="noNotesExceptionMessage">There are no notes. Create new one</string>
     <string name="defaultExceptionMessage">Unknown exception</string>
     <string name="create_button">Create button</string>
+    <string name="createButtonContentDescription">Button to creating new note</string>
 </resources>

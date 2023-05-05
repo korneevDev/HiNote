@@ -40,7 +40,9 @@ class NoteListFragment : Fragment() {
 
         var i = 0
         createButton.setOnClickListener{
-            viewModel.createNote(i, "NoteHeader$i", "NoteBody$i", "NoteDate"+ i++)
+            viewModel.createNote(i, "NoteHeaderaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa$i",
+                "NoteBodyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa$i",
+                "NoteDate"+ i++)
         }
     }
 }

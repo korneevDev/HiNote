@@ -16,8 +16,15 @@
         android:layout_height="wrap_content"
         app:fontFamily="sans-serif-condensed-medium"
         android:textSize="23sp"
+        android:maxLines="3"
+        android:ellipsize="end"
         tools:text="Header"
         android:textColor="@color/black"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/background_dark"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +34,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:ellipsize="end"
             android:textSize="20sp"
             android:fontFamily="casual"
             android:textColor="@color/black"
@@ -40,8 +46,10 @@
             android:layout_weight="1"
             android:gravity="end"
             android:textSize="15sp"
-            android:fontFamily="serif-monospace"
+            android:fontFamily="sans-serif-thin"
+            android:textStyle="bold|italic"
             android:textColor="@color/black"
+            android:layout_gravity="bottom"
             tools:text="03-05-23"/>
         </LinearLayout>
     </LinearLayout>

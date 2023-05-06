@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import github.mik0war.hinote.NotesApp
@@ -34,16 +35,12 @@ class NoteListFragment : Fragment() {
         }
 
         recyclerView.adapter = adapter
-
         viewModel.showNoteList()
 
         val createButton = view.findViewById<FloatingActionButton>(R.id.createButton)
 
-        var i = 0
         createButton.setOnClickListener{
-            viewModel.createNote(i, "NoteHeaderaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa$i",
-                "NoteBodyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa$i",
-                "NoteDate"+ i++)
+            findNavController().navigate(R.id.action_NotesListFragment_to_CreateNoteFragment)
         }
     }
 }

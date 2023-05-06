@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/NotesListFragment">
+
+    <fragment
+        android:id="@+id/NotesListFragment"
+        android:name="github.mik0war.hinote.presentation.NoteListFragment"
+        tools:layout="@layout/fragment_note_list">
+
+        <action
+            android:id="@+id/action_NotesListFragment_to_CreateNoteFragment"
+            app:destination="@id/CreateNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CreateNoteFragment"
+        android:name="github.mik0war.hinote.presentation.NoteCreateFragment"
+        tools:layout="@layout/fragment_create_note">
+
+        <action
+            android:id="@+id/action_CreateNoteFragment_to_NotesListFragment"
+            app:destination="@id/NotesListFragment" />
+    </fragment>
+</navigation>

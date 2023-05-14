@@ -8,29 +8,31 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:id="@+id/noteHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_16dp"
                 android:backgroundTint="@color/background_dark"
-                android:hint="@string/header_of_note" />
+                android:hint="@string/header_of_note"
+                android:autofillHints="@string/header_of_note"
+                android:inputType="text" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:id="@+id/noteBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/background"
                     android:layout_marginHorizontal="@dimen/_16dp"
-                    android:hint="@string/note_body" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/note_body"
+                    android:autofillHints="@string/note_body"
+                    android:inputType="text"/>
+        </LinearLayout>
 
     </ScrollView>
 

@@ -30,10 +30,9 @@ class NoteCreateFragment : Fragment() {
 
         val headerEditText = view.findViewById<EditText>(R.id.noteHeader)
         val bodyEditText = view.findViewById<EditText>(R.id.noteBody)
-        var i = 0
 
         button.setOnClickListener{
-            viewModel.createNote(i++, headerEditText.text.toString(), bodyEditText.text.toString())
+            viewModel.createNote(headerEditText.text.toString(), bodyEditText.text.toString())
             findNavController().navigate(R.id.action_CreateNoteFragment_to_NotesListFragment)
         }
     }

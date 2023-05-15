@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
-    suspend fun saveNote(note: NoteDataModel)
+    suspend fun saveNote(header: String, body: String, dateTime: String)
     suspend fun removeNote(id: Int)
 
     class Base(
@@ -22,9 +22,10 @@ interface NoteRepository {
                 throw e
             }
         }
-        override suspend fun saveNote(note: NoteDataModel) = withContext(dispatcher) {
+        override suspend fun saveNote(header: String, body: String, dateTime: String) =
+            withContext(dispatcher) {
             try {
-                return@withContext cacheDataSource.save(note)
+                return@withContext cacheDataSource.save(header, body, dateTime)
             } catch (e: Exception) {
                 throw e
             }

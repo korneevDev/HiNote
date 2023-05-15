@@ -2,6 +2,7 @@ package github.mik0war.hinote
 
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.MockCacheDataSource
+import github.mik0war.hinote.core.MockCurrentDateTime
 import github.mik0war.hinote.core.MockResourceManager
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
@@ -16,8 +17,8 @@ class BaseNoteInteractorTest {
     @Test
     fun test() = runBlocking {
         val expected = listOf(
-            NoteModel.Success(0, "test Header 1", "Test Body 1", "01-03-04"),
-            NoteModel.Success(1, "test Header 2", "Test Body 2", "02-05-06")
+            NoteModel.Success(0, "test Header 1", "Test Body 1", "00:00:00"),
+            NoteModel.Success(1, "test Header 2", "Test Body 2", "11:11:11")
         )
         val repository = NoteRepository.Base(MockCacheDataSource())
         val interactor = NoteInteractor.Base(
@@ -25,7 +26,8 @@ class BaseNoteInteractorTest {
             ExceptionHandler.Base(
                 MockResourceManager()
             ),
-            MapperParametrised.ToDataModel()
+            MapperParametrised.ToDataModel(),
+            MockCurrentDateTime()
         )
 
         val expectedError = NoteModel.Failed("No notes")
@@ -33,8 +35,8 @@ class BaseNoteInteractorTest {
 
         assertEquals(actual[0], expectedError)
 
-        interactor.addNote(0, "test Header 1", "Test Body 1", "01-03-04")
-        interactor.addNote(1, "test Header 2", "Test Body 2", "02-05-06")
+        interactor.addNote(0, "test Header 1", "Test Body 1")
+        interactor.addNote(1, "test Header 2", "Test Body 2")
 
         actual = interactor.getNoteList()
 

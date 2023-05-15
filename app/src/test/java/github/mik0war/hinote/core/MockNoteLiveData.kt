@@ -16,4 +16,6 @@ class MockNoteLiveData : NoteLiveData {
     override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
         observeCount++
     }
+
+    override fun getNotesList(): List<NoteUIModel> = notesList
 }

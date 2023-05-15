@@ -2,6 +2,7 @@ package github.mik0war.hinote
 
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.MockCacheDataSource
+import github.mik0war.hinote.core.MockCurrentDateTime
 import github.mik0war.hinote.core.MockNoteLiveData
 import github.mik0war.hinote.core.MockResourceManager
 import github.mik0war.hinote.data.NoteRepository
@@ -25,7 +26,8 @@ class BaseViewModelTest {
             ExceptionHandler.Base(
                 MockResourceManager()
             ),
-            MapperParametrised.ToDataModel()
+            MapperParametrised.ToDataModel(),
+            MockCurrentDateTime()
         )
 
 

@@ -4,6 +4,7 @@ import android.app.Application
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.data.cache.MockCacheDataSource
+import github.mik0war.hinote.domain.CurrentDateTime
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.ResourceManager
@@ -21,7 +22,8 @@ class NotesApp : Application() {
                 NoteRepository.Base(MockCacheDataSource()
                 ),
                 ExceptionHandler.Base(ResourceManager.Base(this)),
-                MapperParametrised.ToDataModel()
+                MapperParametrised.ToDataModel(),
+                CurrentDateTime.Base()
             ),
             NoteLiveData.Base()
         )

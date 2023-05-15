@@ -33,7 +33,7 @@ class NoteCreateFragment : Fragment() {
         var i = 0
 
         button.setOnClickListener{
-            viewModel.createNote(i++, headerEditText.text.toString(), bodyEditText.text.toString(), "$i$i:$i$i:$i$i")
+            viewModel.createNote(i++, headerEditText.text.toString(), bodyEditText.text.toString())
             findNavController().navigate(R.id.action_CreateNoteFragment_to_NotesListFragment)
         }
     }

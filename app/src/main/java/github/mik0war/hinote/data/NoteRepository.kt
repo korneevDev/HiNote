@@ -22,7 +22,14 @@ interface NoteRepository {
                 throw e
             }
         }
-        override suspend fun saveNote(note: NoteDataModel) = cacheDataSource.save(note)
+        override suspend fun saveNote(note: NoteDataModel) = withContext(dispatcher) {
+            try {
+                return@withContext cacheDataSource.save(note)
+            } catch (e: Exception) {
+                throw e
+            }
+        }
+
         override suspend fun removeNote(id: Int) = cacheDataSource.remove(id)
     }
 }

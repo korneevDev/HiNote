@@ -13,17 +13,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/noteHeader"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16dp"
-                android:backgroundTint="@color/background_dark"
-                android:hint="@string/header_of_note"
-                android:autofillHints="@string/header_of_note"
-                android:inputType="text" />
+                android:layout_height="wrap_content">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/noteHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16dp"
+                    android:backgroundTint="@color/background_dark"
+                    android:hint="@string/header_of_note"
+                    android:autofillHints="@string/header_of_note"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/noteBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -31,7 +39,8 @@
                     android:layout_marginHorizontal="@dimen/_16dp"
                     android:hint="@string/note_body"
                     android:autofillHints="@string/note_body"
-                    android:inputType="text"/>
+                    android:inputType="textMultiLine"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </ScrollView>
@@ -42,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16dp"
+        android:backgroundTint="@color/background"
         android:src="@drawable/save_button_icon"
         android:contentDescription="@string/createButtonContentDescription" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -26,15 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@color/background_dark"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
         <github.mik0war.hinote.presentation.CustomTextViewImpl
             android:id="@+id/noteBody"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:textSize="20sp"
             android:fontFamily="casual"
             android:textColor="@color/black"
@@ -42,9 +38,8 @@
 
         <github.mik0war.hinote.presentation.CustomTextViewImpl
             android:id="@+id/noteDateTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="end"
             android:textSize="15sp"
             android:fontFamily="sans-serif-thin"
@@ -52,5 +47,4 @@
             android:textColor="@color/black"
             android:layout_gravity="bottom"
             tools:text="03-05-23"/>
-        </LinearLayout>
     </LinearLayout>

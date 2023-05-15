@@ -33,7 +33,6 @@ class NotesApp : Application() {
                 )
                 ),
                 ExceptionHandler.Base(ResourceManager.Base(this)),
-                MapperParametrised.ToDataModel(),
                 CurrentDateTime.Base()
             ),
             NoteLiveData.Base()

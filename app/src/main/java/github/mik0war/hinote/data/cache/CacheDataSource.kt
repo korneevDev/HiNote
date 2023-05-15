@@ -5,7 +5,7 @@ import github.mik0war.hinote.data.model.NoteDataModel
 
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
-    suspend fun save(note: NoteDataModel)
+    suspend fun save(header: String, body: String, dateTime: String)
     suspend fun remove(id: Int)
 
     class Base(
@@ -16,8 +16,8 @@ interface CacheDataSource {
             noteDAO.getAll().map{mapper.map(it.id, it.header, it.body, it.dateTime)}
 
 
-        override suspend fun save(note: NoteDataModel) {
-            noteDAO.createNote(note.map())
+        override suspend fun save(header: String, body: String, dateTime: String) {
+            noteDAO.createNote(Note(header, body, dateTime))
         }
 
         override suspend fun remove(id: Int) {

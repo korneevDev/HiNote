@@ -3,6 +3,7 @@ package github.mik0war.hinote.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import github.mik0war.hinote.presentation.model.NoteUIModel
 
 interface NoteLiveData : GetLiveData{
@@ -12,14 +13,19 @@ interface NoteLiveData : GetLiveData{
 
     class Base : NoteLiveData{
         private val notes = MutableLiveData<List<NoteUIModel>>()
+        private lateinit var diffResult: DiffUtil.DiffResult
 
         override fun showNotesList(notesList: List<NoteUIModel>) {
+            val callback = NoteDiffUtilsCallback(notes.value ?: emptyList(), notesList)
+            diffResult = DiffUtil.calculateDiff(callback)
             notes.value = notesList
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             notes.observe(owner, observer)
         }
+
+        override fun getDiffUtilResult() = diffResult
 
         override fun getNotesList() = notes.value ?: emptyList()
     }

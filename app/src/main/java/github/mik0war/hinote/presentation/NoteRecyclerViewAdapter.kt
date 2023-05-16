@@ -10,7 +10,8 @@ class NoteRecyclerViewAdapter(
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
     fun update(){
-        notifyDataSetChanged()
+        val diffResult = notesLiveData.getDiffUtilResult()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {

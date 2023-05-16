@@ -9,6 +9,9 @@ abstract class NoteUIModel(
 ) : Mapper<NoteModel>{
     fun body() = text
     abstract fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView)
+    open fun same(noteUIModel: NoteUIModel) = false
+    open fun matches(id: Int): Boolean = false
+
     data class SuccessNoteUIModel(
         private val id: Int,
         private val header: String,
@@ -24,6 +27,11 @@ abstract class NoteUIModel(
             bodyView.show(body)
             dateTimeView.show(dateTime)
         }
+
+        override fun same(noteUIModel: NoteUIModel): Boolean =
+            noteUIModel is SuccessNoteUIModel && noteUIModel.matches(id)
+
+        override fun matches(id: Int): Boolean = this.id == id
 
         override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime)
     }

@@ -38,6 +38,7 @@ interface NoteViewModel : GetLiveData {
             viewModelScope.launch(dispatcher) {
                 interactor.removeNote(id)
             }
+            showNoteList()
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
@@ -45,5 +46,6 @@ interface NoteViewModel : GetLiveData {
         }
 
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()
+        override fun getDiffUtilResult() = liveData.getDiffUtilResult()
     }
 }

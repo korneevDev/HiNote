@@ -35,6 +35,21 @@
             android:fontFamily="casual"
             android:textColor="@color/black"
             tools:text="Body" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delete_button_icon"
+            android:backgroundTint="@color/background"
+            app:tint="@color/black"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/_4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/delete_button_content_description"
+            />
 
         <github.mik0war.hinote.presentation.CustomTextViewImpl
             android:id="@+id/noteDateTime"
@@ -47,4 +62,6 @@
             android:textColor="@color/black"
             android:layout_gravity="bottom"
             tools:text="03-05-23"/>
+    </LinearLayout>
+
     </LinearLayout>

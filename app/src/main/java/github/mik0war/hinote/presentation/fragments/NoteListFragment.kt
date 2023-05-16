@@ -1,4 +1,4 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
+import github.mik0war.hinote.presentation.NoteDeleteClickListener
+import github.mik0war.hinote.presentation.NoteEditClickListener
+import github.mik0war.hinote.presentation.NoteRecyclerViewAdapter
+import github.mik0war.hinote.presentation.NoteViewModel
 
 class NoteListFragment : Fragment() {
     private lateinit var viewModel : NoteViewModel
@@ -28,10 +32,21 @@ class NoteListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
 
-        val adapter = NoteRecyclerViewAdapter(viewModel, object : NoteDeleteClickListener{
+
+        val adapter = NoteRecyclerViewAdapter(viewModel, object : NoteDeleteClickListener {
             override fun delete(id: Int) {
                 viewModel.removeNote(id)
             }
+        },
+        object : NoteEditClickListener {
+            override fun edit(content: Pair<String, String>) {
+                val bundle = Bundle()
+                bundle.putString(KeyNames.HEADER_NAME.keyName, content.first)
+                bundle.putString(KeyNames.BODY_NAME.keyName, content.second)
+
+                findNavController().navigate(R.id.action_NotesListFragment_to_CreateNoteFragment, bundle)
+            }
+
         })
 
         viewModel.observe(this){
@@ -47,4 +62,11 @@ class NoteListFragment : Fragment() {
             findNavController().navigate(R.id.action_NotesListFragment_to_CreateNoteFragment)
         }
     }
+}
+
+enum class KeyNames(val keyName: String){
+    HEADER_NAME("header"),
+    BODY_NAME("body")
+
+
 }

@@ -1,4 +1,4 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
+import github.mik0war.hinote.presentation.NoteViewModel
 
 class NoteCreateFragment : Fragment() {
     private lateinit var viewModel: NoteViewModel
@@ -30,6 +31,9 @@ class NoteCreateFragment : Fragment() {
 
         val headerEditText = view.findViewById<EditText>(R.id.noteHeader)
         val bodyEditText = view.findViewById<EditText>(R.id.noteBody)
+
+        headerEditText.setText(arguments?.getString(KeyNames.HEADER_NAME.keyName))
+        bodyEditText.setText(arguments?.getString(KeyNames.BODY_NAME.keyName))
 
         button.setOnClickListener{
             viewModel.createNote(headerEditText.text.toString(), bodyEditText.text.toString())

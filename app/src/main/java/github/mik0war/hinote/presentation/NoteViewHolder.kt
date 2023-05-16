@@ -8,6 +8,7 @@ import github.mik0war.hinote.presentation.model.NoteUIModel
 
 class NoteViewHolder(
     private val listener: NoteDeleteClickListener,
+    private val editClickListener: NoteEditClickListener,
     view: View,
 ) : RecyclerView.ViewHolder(view){
     private val headerTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteHeader)
@@ -15,11 +16,16 @@ class NoteViewHolder(
     private val dateTimeTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteDateTime)
 
     private val deleteButton = itemView.findViewById<ImageButton>(R.id.deleteButton)
+    private val editButton = itemView.findViewById<ImageButton>(R.id.editButton)
     fun bind(item : NoteUIModel) {
         item.map(headerTextView, bodyTextView, dateTimeTextView)
 
         deleteButton.setOnClickListener{
             item.delete(listener)
+        }
+
+        editButton.setOnClickListener {
+            item.getContent(editClickListener)
         }
     }
 }

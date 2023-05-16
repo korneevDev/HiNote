@@ -50,6 +50,18 @@
             android:scaleType="centerCrop"
             android:contentDescription="@string/delete_button_content_description"
             />
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_button_icon"
+            android:backgroundTint="@color/background"
+            app:tint="@color/black"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/_8dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/edit_button_content_description"
+            />
 
         <github.mik0war.hinote.presentation.CustomTextViewImpl
             android:id="@+id/noteDateTime"

@@ -17,4 +17,5 @@
     <string name="header_of_note">Header of note</string>
     <string name="note_body">Text</string>
     <string name="delete_button_content_description">ImageButton to deleting note</string>
+    <string name="edit_button_content_description">ImageButton for editing content of note</string>
 </resources>

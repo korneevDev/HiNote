@@ -7,17 +7,19 @@
 
     <fragment
         android:id="@+id/NotesListFragment"
-        android:name="github.mik0war.hinote.presentation.NoteListFragment"
+        android:name="github.mik0war.hinote.presentation.fragments.NoteListFragment"
         tools:layout="@layout/fragment_note_list">
 
         <action
             android:id="@+id/action_NotesListFragment_to_CreateNoteFragment"
-            app:destination="@id/CreateNoteFragment" />
+            app:destination="@id/CreateNoteFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/CreateNoteFragment"
-        android:name="github.mik0war.hinote.presentation.NoteCreateFragment"
+        android:name="github.mik0war.hinote.presentation.fragments.NoteCreateFragment"
         tools:layout="@layout/fragment_create_note">
+
 
         <action
             android:id="@+id/action_CreateNoteFragment_to_NotesListFragment"

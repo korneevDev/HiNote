@@ -3,6 +3,7 @@ package github.mik0war.hinote.presentation.model
 import github.mik0war.hinote.core.Mapper
 import github.mik0war.hinote.domain.model.NoteModel
 import github.mik0war.hinote.presentation.CustomTextView
+import github.mik0war.hinote.presentation.NoteDeleteClickListener
 
 abstract class NoteUIModel(
     private val text: String,
@@ -11,6 +12,7 @@ abstract class NoteUIModel(
     abstract fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView)
     open fun same(noteUIModel: NoteUIModel) = false
     open fun matches(id: Int): Boolean = false
+    open fun delete(listener: NoteDeleteClickListener){}
 
     data class SuccessNoteUIModel(
         private val id: Int,
@@ -32,6 +34,10 @@ abstract class NoteUIModel(
             noteUIModel is SuccessNoteUIModel && noteUIModel.matches(id)
 
         override fun matches(id: Int): Boolean = this.id == id
+
+        override fun delete(listener: NoteDeleteClickListener) {
+            listener.delete(id)
+        }
 
         override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime)
     }

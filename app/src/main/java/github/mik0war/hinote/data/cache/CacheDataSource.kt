@@ -21,7 +21,8 @@ interface CacheDataSource {
         }
 
         override suspend fun remove(id: Int) {
-            TODO("Not yet implemented")
+            val note = noteDAO.getNoteByID(id)
+            noteDAO.delete(note)
         }
     }
 }

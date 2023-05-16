@@ -28,7 +28,11 @@ class NoteListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
 
-        val adapter = NoteRecyclerViewAdapter(viewModel)
+        val adapter = NoteRecyclerViewAdapter(viewModel, object : NoteDeleteClickListener{
+            override fun delete(id: Int) {
+                viewModel.removeNote(id)
+            }
+        })
 
         viewModel.observe(this){
             adapter.update()

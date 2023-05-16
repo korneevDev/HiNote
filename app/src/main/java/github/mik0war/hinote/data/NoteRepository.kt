@@ -31,6 +31,13 @@ interface NoteRepository {
             }
         }
 
-        override suspend fun removeNote(id: Int) = cacheDataSource.remove(id)
+        override suspend fun removeNote(id: Int) =
+            withContext(dispatcher) {
+                try {
+                    return@withContext cacheDataSource.remove(id)
+                } catch (e: Exception) {
+                    throw e
+                }
+            }
     }
 }

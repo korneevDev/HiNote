@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import github.mik0war.hinote.R
 
 class NoteRecyclerViewAdapter(
-    private val notesLiveData: GetLiveData
+    private val notesLiveData: GetLiveData,
+    private val listener: NoteDeleteClickListener
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
     fun update(){
@@ -15,7 +16,7 @@ class NoteRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        return NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.notes_list_object,
+        return NoteViewHolder(listener, LayoutInflater.from(parent.context).inflate(R.layout.notes_list_object,
             parent, false))
     }
 

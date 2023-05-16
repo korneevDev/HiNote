@@ -30,15 +30,15 @@ interface NoteViewModel : GetLiveData {
         override fun createNote(header: String, body: String) {
             viewModelScope.launch(dispatcher) {
                 interactor.addNote(header, body)
+                showNoteList()
             }
-            showNoteList()
         }
 
         override fun removeNote(id: Int) {
             viewModelScope.launch(dispatcher) {
                 interactor.removeNote(id)
+                showNoteList()
             }
-            showNoteList()
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {

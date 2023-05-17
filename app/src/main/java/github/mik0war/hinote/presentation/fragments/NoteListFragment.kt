@@ -39,10 +39,11 @@ class NoteListFragment : Fragment() {
             }
         },
         object : NoteEditClickListener {
-            override fun edit(content: Pair<String, String>) {
+            override fun edit(content: Triple<Int, String, String>) {
                 val bundle = Bundle()
-                bundle.putString(KeyNames.HEADER_NAME.keyName, content.first)
-                bundle.putString(KeyNames.BODY_NAME.keyName, content.second)
+                bundle.putInt(KeyNames.ID_NAME.keyName, content.first)
+                bundle.putString(KeyNames.HEADER_NAME.keyName, content.second)
+                bundle.putString(KeyNames.BODY_NAME.keyName, content.third)
 
                 findNavController().navigate(R.id.action_NotesListFragment_to_CreateNoteFragment, bundle)
             }
@@ -65,6 +66,7 @@ class NoteListFragment : Fragment() {
 }
 
 enum class KeyNames(val keyName: String){
+    ID_NAME("id"),
     HEADER_NAME("header"),
     BODY_NAME("body")
 

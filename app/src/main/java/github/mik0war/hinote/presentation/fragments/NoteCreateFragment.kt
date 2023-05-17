@@ -36,7 +36,14 @@ class NoteCreateFragment : Fragment() {
         bodyEditText.setText(arguments?.getString(KeyNames.BODY_NAME.keyName))
 
         button.setOnClickListener{
-            viewModel.createNote(headerEditText.text.toString(), bodyEditText.text.toString())
+            val headerText = headerEditText.text.toString()
+            val bodyText = bodyEditText.text.toString()
+            if(arguments == null)
+                viewModel.createNote(headerText, bodyText)
+            else
+                viewModel.updateNote(
+                    requireArguments().getInt(KeyNames.ID_NAME.keyName), headerText, bodyText
+                )
             findNavController().navigate(R.id.action_CreateNoteFragment_to_NotesListFragment)
         }
     }

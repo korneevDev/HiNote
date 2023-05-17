@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 interface NoteViewModel : GetLiveData {
     fun showNoteList()
     fun createNote(header: String, body: String)
+    fun updateNote(id: Int, header: String, body: String)
     fun removeNote(id: Int)
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
 
@@ -30,6 +31,13 @@ interface NoteViewModel : GetLiveData {
         override fun createNote(header: String, body: String) {
             viewModelScope.launch(dispatcher) {
                 interactor.addNote(header, body)
+                showNoteList()
+            }
+        }
+
+        override fun updateNote(id: Int, header: String, body: String) {
+            viewModelScope.launch(dispatcher) {
+                interactor.updateNote(id, header, body)
                 showNoteList()
             }
         }

@@ -1,9 +1,12 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.recyclerView
 
 import android.view.View
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import github.mik0war.hinote.R
+import github.mik0war.hinote.presentation.CustomTextViewImpl
+import github.mik0war.hinote.presentation.NoteDeleteClickListener
+import github.mik0war.hinote.presentation.NoteEditClickListener
 import github.mik0war.hinote.presentation.model.NoteUIModel
 
 abstract class NoteViewHolder(

@@ -16,35 +16,21 @@ interface NoteRepository {
         private val cacheDataSource: CacheDataSource,
         private val dispatcher: CoroutineDispatcher =  Dispatchers.IO
     ) : NoteRepository {
-        override suspend fun getNotesList(): List<NoteDataModel> = withContext(dispatcher){
-            try {
-                return@withContext cacheDataSource.getNotesList()
-            } catch (e: Exception){
-                throw e
-            }
-        }
+        override suspend fun getNotesList(): List<NoteDataModel> =
+            handle { cacheDataSource.getNotesList() }
         override suspend fun saveNote(header: String, body: String, dateTime: String) =
-            withContext(dispatcher) {
-            try {
-                return@withContext cacheDataSource.save(header, body, dateTime)
-            } catch (e: Exception) {
-                throw e
-            }
-        }
+            handle { cacheDataSource.save(header, body, dateTime) }
 
         override suspend fun updateNote(id: Int, header: String, body: String)  =
-            withContext(dispatcher) {
-                try {
-                    return@withContext cacheDataSource.update(id, header, body)
-                } catch (e: Exception) {
-                    throw e
-                }
-            }
+            handle { cacheDataSource.update(id, header, body) }
 
         override suspend fun removeNote(id: Int) =
+            handle { cacheDataSource.remove(id) }
+
+        private suspend fun <T>handle(block: suspend ()-> T) =
             withContext(dispatcher) {
                 try {
-                    return@withContext cacheDataSource.remove(id)
+                    return@withContext block.invoke()
                 } catch (e: Exception) {
                     throw e
                 }

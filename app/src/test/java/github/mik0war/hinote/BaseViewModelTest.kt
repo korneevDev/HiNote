@@ -1,6 +1,5 @@
 package github.mik0war.hinote
 
-import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.MockCacheDataSource
 import github.mik0war.hinote.core.MockCurrentDateTime
 import github.mik0war.hinote.core.MockNoteLiveData
@@ -8,7 +7,8 @@ import github.mik0war.hinote.core.MockResourceManager
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
-import github.mik0war.hinote.presentation.NoteViewModel
+import github.mik0war.hinote.presentation.CachedNote
+import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 import github.mik0war.hinote.presentation.model.NoteUIModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -26,7 +26,6 @@ class BaseViewModelTest {
             ExceptionHandler.Base(
                 MockResourceManager()
             ),
-            MapperParametrised.ToDataModel(),
             MockCurrentDateTime()
         )
 
@@ -36,6 +35,7 @@ class BaseViewModelTest {
         val viewModel = NoteViewModel.Base(
             interactor,
             liveData,
+            CachedNote.Base(),
             UnconfinedTestDispatcher()
             )
 

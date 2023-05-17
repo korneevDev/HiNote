@@ -13,8 +13,8 @@ import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
-import github.mik0war.hinote.presentation.NoteRecyclerViewAdapter
-import github.mik0war.hinote.presentation.NoteViewModel
+import github.mik0war.hinote.presentation.recyclerView.NoteRecyclerViewAdapter
+import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
 class NoteListFragment : Fragment() {
     private lateinit var viewModel : NoteViewModel

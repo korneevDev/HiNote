@@ -5,7 +5,7 @@ import github.mik0war.hinote.domain.model.NoteModel
 import github.mik0war.hinote.presentation.CustomTextView
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
-import github.mik0war.hinote.presentation.NoteViewModel
+import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
 abstract class NoteUIModel(
     private val text: String,

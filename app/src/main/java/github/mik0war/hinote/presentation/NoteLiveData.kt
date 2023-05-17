@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.recyclerView.NoteDiffUtilsCallback
+import github.mik0war.hinote.presentation.viewModel.GetLiveData
 
-interface NoteLiveData : GetLiveData{
+interface NoteLiveData : GetLiveData {
     fun showNotesList(notesList: List<NoteUIModel>)
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
 

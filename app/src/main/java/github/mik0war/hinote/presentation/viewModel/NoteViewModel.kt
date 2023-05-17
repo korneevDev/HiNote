@@ -1,10 +1,12 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.viewModel
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import github.mik0war.hinote.domain.NoteInteractor
+import github.mik0war.hinote.presentation.CachedNote
+import github.mik0war.hinote.presentation.NoteLiveData
 import github.mik0war.hinote.presentation.model.NoteUIModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

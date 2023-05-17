@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
-import github.mik0war.hinote.presentation.NoteViewModel
+import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
 class NoteCreateFragment : Fragment() {
     private lateinit var viewModel: NoteViewModel

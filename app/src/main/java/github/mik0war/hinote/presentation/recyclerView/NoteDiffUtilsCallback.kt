@@ -1,4 +1,4 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.recyclerView
 
 import androidx.recyclerview.widget.DiffUtil
 import github.mik0war.hinote.presentation.model.NoteUIModel

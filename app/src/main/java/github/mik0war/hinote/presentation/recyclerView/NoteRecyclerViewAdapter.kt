@@ -1,9 +1,12 @@
-package github.mik0war.hinote.presentation
+package github.mik0war.hinote.presentation.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import github.mik0war.hinote.R
+import github.mik0war.hinote.presentation.viewModel.GetLiveData
+import github.mik0war.hinote.presentation.NoteDeleteClickListener
+import github.mik0war.hinote.presentation.NoteEditClickListener
 import github.mik0war.hinote.presentation.model.NoteUIModel
 
 class NoteRecyclerViewAdapter(
@@ -28,8 +31,8 @@ class NoteRecyclerViewAdapter(
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return if (isEmptyList) NoteViewHolder.Empty(view)
             else NoteViewHolder.Base(
-                listener, editClickListener, view
-            )
+            listener, editClickListener, view
+        )
     }
 
     override fun getItemCount() = notesLiveData.getNotesList().size

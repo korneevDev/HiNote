@@ -18,4 +18,7 @@
     <string name="note_body">Text</string>
     <string name="delete_button_content_description">ImageButton to deleting note</string>
     <string name="edit_button_content_description">ImageButton for editing content of note</string>
+
+    <string name="undo_question">Undo deleting note?</string>
+    <string name="undo_answer">undo</string>
 </resources>

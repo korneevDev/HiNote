@@ -2,6 +2,7 @@ package github.mik0war.hinote.data.cache
 
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.data.model.NoteDataModel
+import github.mik0war.hinote.domain.NoNotesException
 
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
@@ -13,8 +14,12 @@ interface CacheDataSource {
         private val mapper: MapperParametrised<NoteDataModel>,
         private val noteDAO: NoteDAO
     ): CacheDataSource {
-        override suspend fun getNotesList(): List<NoteDataModel> =
-            noteDAO.getAll().map{mapper.map(it.id, it.header, it.body, it.dateTime)}
+        override suspend fun getNotesList(): List<NoteDataModel> {
+            val list = noteDAO.getAll().map {
+                mapper.map(it.id, it.header, it.body, it.dateTime)
+            }
+            return list.ifEmpty { throw NoNotesException() }
+        }
 
 
         override suspend fun save(header: String, body: String, dateTime: String) {

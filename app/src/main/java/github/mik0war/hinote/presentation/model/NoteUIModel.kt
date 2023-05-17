@@ -10,7 +10,12 @@ abstract class NoteUIModel(
     private val text: String,
 ) : Mapper<NoteModel>{
     fun body() = text
-    abstract fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView)
+    open fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView) {
+        map(bodyView)
+    }
+    fun map(bodyView: CustomTextView){
+        bodyView.show(text)
+    }
     open fun same(noteUIModel: NoteUIModel) = false
     open fun matches(id: Int): Boolean = false
     open fun delete(listener: NoteDeleteClickListener){}
@@ -27,8 +32,8 @@ abstract class NoteUIModel(
             bodyView: CustomTextView,
             dateTimeView: CustomTextView
         ) {
+            map(bodyView)
             headerView.show(header)
-            bodyView.show(body)
             dateTimeView.show(dateTime)
         }
 
@@ -49,14 +54,6 @@ abstract class NoteUIModel(
     }
 
     data class Failed(val body: String) : NoteUIModel(body) {
-        override fun map(
-            headerView: CustomTextView,
-            bodyView: CustomTextView,
-            dateTimeView: CustomTextView
-        ) {
-            bodyView.show(body)
-        }
-
         override fun mapTo() = NoteModel.Failed(body())
     }
 }

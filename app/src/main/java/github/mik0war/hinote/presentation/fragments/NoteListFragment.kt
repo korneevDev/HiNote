@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
@@ -35,7 +36,13 @@ class NoteListFragment : Fragment() {
 
         val adapter = NoteRecyclerViewAdapter(viewModel, object : NoteDeleteClickListener {
             override fun delete(id: Int) {
-                viewModel.removeNote(id)
+                Snackbar.make(
+                    recyclerView,
+                    "Undo deleting note?",
+                    Snackbar.LENGTH_SHORT
+                ).setAction("undo") {
+                    viewModel.removeNote(id)
+                }.show()
             }
         },
         object : NoteEditClickListener {

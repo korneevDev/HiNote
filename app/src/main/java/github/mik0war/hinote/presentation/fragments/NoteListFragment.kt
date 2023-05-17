@@ -33,7 +33,7 @@ class NoteListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
 
-        viewModel.observeCachedNote(this){
+        viewModel.observeCachedNote {
             Snackbar.make(
                 recyclerView,
                 R.string.undo_question,

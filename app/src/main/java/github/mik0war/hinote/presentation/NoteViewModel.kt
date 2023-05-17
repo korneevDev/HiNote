@@ -18,12 +18,13 @@ interface NoteViewModel : GetLiveData {
     fun removeNote(id: Int)
     fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
     fun getCached(): NoteUIModel
-    fun observeCachedNote(owner: LifecycleOwner, observer: Observer<NoteUIModel?>)
+
+    fun observeCachedNote(observer: () -> Unit)
 
     class Base(
         private val interactor: NoteInteractor,
         private val liveData: NoteLiveData,
-        private val cacheLiveData: CachedNoteLiveData,
+        private val cacheLiveData: CachedNote,
         private val dispatcher: CoroutineDispatcher = Dispatchers.Main
     ) : NoteViewModel, ViewModel() {
         override fun showNoteList() {
@@ -55,8 +56,7 @@ interface NoteViewModel : GetLiveData {
 
         override fun removeNote(id: Int) {
             viewModelScope.launch(dispatcher) {
-                val note = interactor.removeNote(id).mapTo()
-                cacheLiveData.cacheNote(note)
+                cacheLiveData.cacheNote(interactor.removeNote(id).mapTo())
                 showNoteList()
             }
         }
@@ -66,10 +66,10 @@ interface NoteViewModel : GetLiveData {
         }
 
         override fun getCached(): NoteUIModel =
-            cacheLiveData.getNote()!!
+            cacheLiveData.getNote()
 
-        override fun observeCachedNote(owner: LifecycleOwner, observer: Observer<NoteUIModel?>) {
-            cacheLiveData.observe(owner, observer)
+        override fun observeCachedNote(observer: ()-> Unit) {
+            cacheLiveData.observe(observer)
         }
 
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()

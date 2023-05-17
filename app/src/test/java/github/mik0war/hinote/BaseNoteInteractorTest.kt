@@ -1,6 +1,5 @@
 package github.mik0war.hinote
 
-import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.MockCacheDataSource
 import github.mik0war.hinote.core.MockCurrentDateTime
 import github.mik0war.hinote.core.MockResourceManager
@@ -26,7 +25,6 @@ class BaseNoteInteractorTest {
             ExceptionHandler.Base(
                 MockResourceManager()
             ),
-            MapperParametrised.ToDataModel(),
             MockCurrentDateTime()
         )
 
@@ -35,8 +33,8 @@ class BaseNoteInteractorTest {
 
         assertEquals(actual[0], expectedError)
 
-        interactor.addNote(0, "test Header 1", "Test Body 1")
-        interactor.addNote(1, "test Header 2", "Test Body 2")
+        interactor.addNote("test Header 1", "Test Body 1")
+        interactor.addNote("test Header 2", "Test Body 2")
 
         actual = interactor.getNoteList()
 

@@ -13,11 +13,16 @@ class MockCacheDataSource : CacheDataSource {
         return list
     }
 
-    override suspend fun save(note: NoteDataModel) {
-        list.add(note)
+    override suspend fun save(header: String, body: String, dateTime: String) {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun remove(id: Int) {
-        list.removeAt(id)
+    override suspend fun update(id: Int, newHeader: String, newBody: String) {
+        TODO("Not yet implemented")
     }
+
+    override suspend fun remove(id: Int): NoteDataModel {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -10,7 +10,7 @@ interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
     suspend fun saveNote(header: String, body: String, dateTime: String)
     suspend fun updateNote(id: Int, header: String, body: String)
-    suspend fun removeNote(id: Int)
+    suspend fun removeNote(id: Int): NoteDataModel
 
     class Base(
         private val cacheDataSource: CacheDataSource,

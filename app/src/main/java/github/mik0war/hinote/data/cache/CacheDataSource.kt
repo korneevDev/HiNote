@@ -8,7 +8,7 @@ interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
     suspend fun save(header: String, body: String, dateTime: String)
     suspend fun update(id: Int, newHeader: String, newBody: String)
-    suspend fun remove(id: Int)
+    suspend fun remove(id: Int): NoteDataModel
 
     class Base(
         private val mapper: MapperParametrised<NoteDataModel>,
@@ -32,9 +32,11 @@ interface CacheDataSource {
             noteDAO.update(newNote)
         }
 
-        override suspend fun remove(id: Int) {
+        override suspend fun remove(id: Int): NoteDataModel {
             val note = noteDAO.getNoteByID(id)
             noteDAO.delete(note)
+
+            return mapper.map(note.id, note.header, note.body, note.dateTime)
         }
     }
 }

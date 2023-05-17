@@ -13,13 +13,17 @@ import kotlinx.coroutines.launch
 interface NoteViewModel : GetLiveData {
     fun showNoteList()
     fun createNote(header: String, body: String)
+    fun createNote(header: String, body: String, dateTime: String)
     fun updateNote(id: Int, header: String, body: String)
     fun removeNote(id: Int)
-    fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
+    fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
+    fun getCached(): NoteUIModel
+    fun observeCachedNote(owner: LifecycleOwner, observer: Observer<NoteUIModel?>)
 
     class Base(
         private val interactor: NoteInteractor,
         private val liveData: NoteLiveData,
+        private val cacheLiveData: CachedNoteLiveData,
         private val dispatcher: CoroutineDispatcher = Dispatchers.Main
     ) : NoteViewModel, ViewModel() {
         override fun showNoteList() {
@@ -35,6 +39,13 @@ interface NoteViewModel : GetLiveData {
             }
         }
 
+        override fun createNote(header: String, body: String, dateTime: String) {
+            viewModelScope.launch(dispatcher) {
+                interactor.addNote(header, body, dateTime)
+                showNoteList()
+            }
+        }
+
         override fun updateNote(id: Int, header: String, body: String) {
             viewModelScope.launch(dispatcher) {
                 interactor.updateNote(id, header, body)
@@ -44,13 +55,21 @@ interface NoteViewModel : GetLiveData {
 
         override fun removeNote(id: Int) {
             viewModelScope.launch(dispatcher) {
-                interactor.removeNote(id)
+                val note = interactor.removeNote(id).mapTo()
+                cacheLiveData.cacheNote(note)
                 showNoteList()
             }
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
+        override fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             liveData.observe(owner, observer)
+        }
+
+        override fun getCached(): NoteUIModel =
+            cacheLiveData.getNote()!!
+
+        override fun observeCachedNote(owner: LifecycleOwner, observer: Observer<NoteUIModel?>) {
+            cacheLiveData.observe(owner, observer)
         }
 
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()

@@ -6,8 +6,9 @@ import github.mik0war.hinote.domain.model.NoteModel
 interface NoteInteractor {
     suspend fun getNoteList(): List<NoteModel>
     suspend fun addNote(header: String, body: String)
+    suspend fun addNote(header: String, body: String, dateTime: String)
     suspend fun updateNote(id: Int, header: String, body: String)
-    suspend fun removeNote(id: Int)
+    suspend fun removeNote(id: Int): NoteModel
 
     class Base(
         private val repository: NoteRepository,
@@ -23,15 +24,18 @@ interface NoteInteractor {
             listOf(exceptionHandler.handle(e))
         }
 
+        override suspend fun addNote(header: String, body: String, dateTime: String) {
+            repository.saveNote(header, body, dateTime)
+        }
+
         override suspend fun addNote(header: String, body: String) =
-            repository.saveNote(header, body, currentDateTime.getCurrentTime())
+            addNote(header, body, currentDateTime.getCurrentTime())
 
         override suspend fun updateNote(id: Int, header: String, body: String) {
             repository.updateNote(id, header, body)
         }
 
-        override suspend fun removeNote(id: Int) {
-            repository.removeNote(id)
-        }
+        override suspend fun removeNote(id: Int): NoteModel =
+            repository.removeNote(id).mapTo()
     }
 }

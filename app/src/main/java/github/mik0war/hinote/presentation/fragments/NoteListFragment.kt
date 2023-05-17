@@ -33,16 +33,19 @@ class NoteListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.notesList)
 
+        viewModel.observeCachedNote(this){
+            Snackbar.make(
+                recyclerView,
+                R.string.undo_question,
+                Snackbar.LENGTH_SHORT
+            ).setAction(R.string.undo_answer) {
+                viewModel.getCached().addTo(viewModel)
+            }.show()
+        }
 
         val adapter = NoteRecyclerViewAdapter(viewModel, object : NoteDeleteClickListener {
             override fun delete(id: Int) {
-                Snackbar.make(
-                    recyclerView,
-                    "Undo deleting note?",
-                    Snackbar.LENGTH_SHORT
-                ).setAction("undo") {
-                    viewModel.removeNote(id)
-                }.show()
+                viewModel.removeNote(id)
             }
         },
         object : NoteEditClickListener {
@@ -57,7 +60,7 @@ class NoteListFragment : Fragment() {
 
         })
 
-        viewModel.observe(this){
+        viewModel.observeList(this){
             adapter.update()
         }
 
@@ -76,6 +79,4 @@ enum class KeyNames(val keyName: String){
     ID_NAME("id"),
     HEADER_NAME("header"),
     BODY_NAME("body")
-
-
 }

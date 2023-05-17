@@ -71,7 +71,7 @@ interface NoteViewModel : GetLiveData {
             cacheLiveData.getNote()
 
         override fun observeCachedNote(observer: ()-> Unit) {
-            cacheLiveData.observe(observer)
+            cacheLiveData.setObserver(observer)
         }
 
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()

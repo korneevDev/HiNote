@@ -11,6 +11,7 @@ import github.mik0war.hinote.presentation.viewModel.GetLiveData
 interface NoteLiveData : GetLiveData {
     fun showNotesList(notesList: List<NoteUIModel>)
     fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
+    fun observe(observer: Observer<List<NoteUIModel>>)
 
 
     class Base : NoteLiveData{
@@ -25,6 +26,10 @@ interface NoteLiveData : GetLiveData {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             notes.observe(owner, observer)
+        }
+
+        override fun observe(observer: Observer<List<NoteUIModel>>) {
+            notes.observeForever(observer)
         }
 
         override fun getDiffUtilResult() = diffResult

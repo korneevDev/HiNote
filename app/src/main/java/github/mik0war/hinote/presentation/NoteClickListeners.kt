@@ -5,5 +5,5 @@ interface NoteDeleteClickListener {
 }
 
 interface NoteEditClickListener{
-    fun edit(content : Pair<String, String>)
+    fun edit(content : Triple<Int, String, String>)
 }

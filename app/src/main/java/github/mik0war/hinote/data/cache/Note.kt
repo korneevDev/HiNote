@@ -11,4 +11,7 @@ data class Note(
     @ColumnInfo(name="DateTime") val dateTime: String
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0
+
+    fun update(newHeader: String, newBody: String): Note =
+        Note(newHeader, newBody, dateTime).also { it.id = this.id }
 }

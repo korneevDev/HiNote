@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
     suspend fun saveNote(header: String, body: String, dateTime: String)
+    suspend fun updateNote(id: Int, header: String, body: String)
     suspend fun removeNote(id: Int)
 
     class Base(
@@ -30,6 +31,15 @@ interface NoteRepository {
                 throw e
             }
         }
+
+        override suspend fun updateNote(id: Int, header: String, body: String)  =
+            withContext(dispatcher) {
+                try {
+                    return@withContext cacheDataSource.update(id, header, body)
+                } catch (e: Exception) {
+                    throw e
+                }
+            }
 
         override suspend fun removeNote(id: Int) =
             withContext(dispatcher) {

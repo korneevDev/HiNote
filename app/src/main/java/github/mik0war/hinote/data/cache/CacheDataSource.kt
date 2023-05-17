@@ -6,6 +6,7 @@ import github.mik0war.hinote.data.model.NoteDataModel
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
     suspend fun save(header: String, body: String, dateTime: String)
+    suspend fun update(id: Int, newHeader: String, newBody: String)
     suspend fun remove(id: Int)
 
     class Base(
@@ -18,6 +19,12 @@ interface CacheDataSource {
 
         override suspend fun save(header: String, body: String, dateTime: String) {
             noteDAO.createNote(Note(header, body, dateTime))
+        }
+
+        override suspend fun update(id: Int, newHeader: String, newBody: String) {
+            val note = noteDAO.getNoteByID(id)
+            val newNote = note.update(newHeader, newBody)
+            noteDAO.update(newNote)
         }
 
         override suspend fun remove(id: Int) {

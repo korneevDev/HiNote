@@ -42,7 +42,7 @@ abstract class NoteUIModel(
         }
 
         override fun getContent(editClickListener: NoteEditClickListener) {
-            editClickListener.edit(Pair(header, body))
+            editClickListener.edit(Triple(id, header, body))
         }
 
         override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime)

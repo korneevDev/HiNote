@@ -1,7 +1,6 @@
-package github.mik0war.hinote
+package github.mik0war.hinote.data
 
-import github.mik0war.hinote.core.TestCacheDataSource
-import github.mik0war.hinote.data.NoteRepository
+import github.mik0war.hinote.core.data.TestCacheDataSource
 import github.mik0war.hinote.data.model.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
 import kotlinx.coroutines.runBlocking

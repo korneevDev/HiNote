@@ -1,4 +1,4 @@
-package github.mik0war.hinote.core
+package github.mik0war.hinote.core.data
 
 import github.mik0war.hinote.data.model.NoteDataModel
 import github.mik0war.hinote.data.cache.CacheDataSource
@@ -26,13 +26,4 @@ class TestCacheDataSource : CacheDataSource {
     override suspend fun remove(id: Int): NoteDataModel {
         return list[id].also { list.remove(it) }.mapToNodeDataModel()
     }
-}
-
-class TestNoteModel(
-    val id: Int,
-    var header: String,
-    var body: String,
-    val dateTime: String
-){
-    fun mapToNodeDataModel() = NoteDataModel(id, header, body, dateTime)
 }

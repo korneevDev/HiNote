@@ -27,12 +27,3 @@ class TestCacheDataSource : CacheDataSource {
         return list[id].also { list.remove(it) }.mapToNodeDataModel()
     }
 }
-
-class TestNoteModel(
-    val id: Int,
-    var header: String,
-    var body: String,
-    val dateTime: String
-){
-    fun mapToNodeDataModel() = NoteDataModel(id, header, body, dateTime)
-}

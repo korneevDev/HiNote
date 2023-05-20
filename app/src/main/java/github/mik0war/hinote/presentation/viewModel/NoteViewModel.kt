@@ -10,14 +10,15 @@ import github.mik0war.hinote.presentation.NoteLiveData
 import github.mik0war.hinote.presentation.model.NoteUIModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 interface NoteViewModel : GetLiveData {
-    fun showNoteList()
-    fun createNote(header: String, body: String)
-    fun createNote(header: String, body: String, dateTime: String)
-    fun updateNote(id: Int, header: String, body: String)
-    fun removeNote(id: Int)
+    fun showNoteList(): Job
+    fun createNote(header: String, body: String): Job
+    fun createNote(header: String, body: String, dateTime: String): Job
+    fun updateNote(id: Int, header: String, body: String): Job
+    fun removeNote(id: Int): Job
     fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
     fun getCached(): NoteUIModel
 
@@ -29,39 +30,34 @@ interface NoteViewModel : GetLiveData {
         private val cacheLiveData: CachedNote,
         private val dispatcher: CoroutineDispatcher = Dispatchers.Main
     ) : NoteViewModel, ViewModel() {
-        override fun showNoteList() {
+        override fun showNoteList() =
             viewModelScope.launch(dispatcher) {
                 liveData.showNotesList(interactor.getNoteList().map { it.mapTo() })
             }
-        }
 
-        override fun createNote(header: String, body: String) {
+        override fun createNote(header: String, body: String) =
             viewModelScope.launch(dispatcher) {
                 interactor.addNote(header, body)
                 showNoteList()
             }
-        }
 
-        override fun createNote(header: String, body: String, dateTime: String) {
+        override fun createNote(header: String, body: String, dateTime: String) =
             viewModelScope.launch(dispatcher) {
                 interactor.addNote(header, body, dateTime)
                 showNoteList()
             }
-        }
 
-        override fun updateNote(id: Int, header: String, body: String) {
+        override fun updateNote(id: Int, header: String, body: String) =
             viewModelScope.launch(dispatcher) {
                 interactor.updateNote(id, header, body)
                 showNoteList()
             }
-        }
 
-        override fun removeNote(id: Int) {
+        override fun removeNote(id: Int) =
             viewModelScope.launch(dispatcher) {
                 cacheLiveData.cacheNote(interactor.removeNote(id).mapTo())
                 showNoteList()
             }
-        }
 
         override fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             liveData.observe(owner, observer)

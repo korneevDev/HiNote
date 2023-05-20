@@ -1,11 +1,9 @@
-package github.mik0war.hinote
+package github.mik0war.hinote.domain
 
-import github.mik0war.hinote.core.MockCacheDataSource
-import github.mik0war.hinote.core.MockCurrentDateTime
-import github.mik0war.hinote.core.MockResourceManager
+import github.mik0war.hinote.core.data.TestCacheDataSource
+import github.mik0war.hinote.core.domain.TestCurrentDateTime
+import github.mik0war.hinote.core.domain.TestResourceManager
 import github.mik0war.hinote.data.NoteRepository
-import github.mik0war.hinote.domain.ExceptionHandler
-import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.model.NoteModel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -19,13 +17,13 @@ class BaseNoteInteractorTest {
             NoteModel.Success(0, "test Header 1", "Test Body 1", "00:00:00"),
             NoteModel.Success(1, "test Header 2", "Test Body 2", "11:11:11")
         )
-        val repository = NoteRepository.Base(MockCacheDataSource())
+        val repository = NoteRepository.Base(TestCacheDataSource())
         val interactor = NoteInteractor.Base(
             repository,
             ExceptionHandler.Base(
-                MockResourceManager()
+                TestResourceManager()
             ),
-            MockCurrentDateTime()
+            TestCurrentDateTime()
         )
 
         val expectedError = NoteModel.Failed("No notes")

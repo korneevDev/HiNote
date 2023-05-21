@@ -10,7 +10,6 @@ import github.mik0war.hinote.domain.CurrentDateTime
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.ResourceManager
-import github.mik0war.hinote.presentation.CachedNote
 import github.mik0war.hinote.presentation.NoteLiveData
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
@@ -36,8 +35,7 @@ class NotesApp : Application() {
                 ExceptionHandler.Base(ResourceManager.Base(this)),
                 CurrentDateTime.Base()
             ),
-            NoteLiveData.Base(),
-            CachedNote.Base()
+            NoteLiveData.Base()
         )
     }
 }

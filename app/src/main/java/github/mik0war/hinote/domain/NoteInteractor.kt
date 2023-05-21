@@ -6,9 +6,9 @@ import github.mik0war.hinote.domain.model.NoteModel
 interface NoteInteractor {
     suspend fun getNoteList(): List<NoteModel>
     suspend fun addNote(header: String, body: String)
-    suspend fun addNote(header: String, body: String, dateTime: String)
+    suspend fun undoDeletingNote()
     suspend fun updateNote(id: Int, header: String, body: String)
-    suspend fun removeNote(id: Int): NoteModel
+    suspend fun removeNote(id: Int)
 
     class Base(
         private val repository: NoteRepository,
@@ -18,24 +18,23 @@ interface NoteInteractor {
 
         override suspend fun getNoteList(): List<NoteModel> = try{
             repository.getNotesList().map {
-                it.mapTo()
+                it.mapToNoteModel()
             }
         } catch (e: Exception){
             listOf(exceptionHandler.handle(e))
         }
 
-        override suspend fun addNote(header: String, body: String, dateTime: String) {
-            repository.saveNote(header, body, dateTime)
+        override suspend fun undoDeletingNote() {
+            repository.saveCachedNote()
         }
 
         override suspend fun addNote(header: String, body: String) =
-            addNote(header, body, currentDateTime.getCurrentTime())
+            repository.saveNote(header, body, currentDateTime.getCurrentTime())
 
         override suspend fun updateNote(id: Int, header: String, body: String) {
             repository.updateNote(id, header, body)
         }
 
-        override suspend fun removeNote(id: Int): NoteModel =
-            repository.removeNote(id).mapTo()
+        override suspend fun removeNote(id: Int) = repository.removeNote(id)
     }
 }

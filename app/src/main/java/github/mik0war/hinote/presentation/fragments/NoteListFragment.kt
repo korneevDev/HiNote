@@ -41,7 +41,7 @@ class NoteListFragment : Fragment() {
                     R.string.undo_question,
                     Snackbar.LENGTH_SHORT
                 ).setAction(R.string.undo_answer) {
-                    viewModel.undoDelete()
+                    viewModel.undoDeleting()
                 }.show()
             }
         },

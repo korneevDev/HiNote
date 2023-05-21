@@ -18,6 +18,13 @@ class TestCacheDataSource : CacheDataSource {
         list.add(i, TestNoteModel(i++, header, body, dateTime))
     }
 
+    override suspend fun save(note: NoteDataModel) {
+        val noteROOMModel = note.mapToNote()
+        list.add(i-1,
+            TestNoteModel(i-1, noteROOMModel.header, noteROOMModel.body, noteROOMModel.dateTime)
+        )
+    }
+
     override suspend fun update(id: Int, newHeader: String, newBody: String) {
         val currentNote = list[id]
         list[id] = TestNoteModel(currentNote.id, newHeader, newBody, currentNote.dateTime)

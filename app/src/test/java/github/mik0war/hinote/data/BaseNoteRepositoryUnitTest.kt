@@ -3,12 +3,15 @@ package github.mik0war.hinote.data
 import github.mik0war.hinote.core.data.TestCacheDataSource
 import github.mik0war.hinote.data.model.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class BaseNoteRepositoryUnitTest {
     @Test
-    fun getting_empty_list_test(): Unit = runBlocking{
+    fun getting_empty_list_test() = runTest{
         val repository = NoteRepository.Base(TestCacheDataSource())
         try{
             repository.getNotesList()
@@ -18,7 +21,7 @@ class BaseNoteRepositoryUnitTest {
     }
 
     @Test
-    fun saving_note_test(): Unit = runBlocking {
+    fun saving_note_test() = runTest {
         val repository = NoteRepository.Base(TestCacheDataSource())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
@@ -31,31 +34,33 @@ class BaseNoteRepositoryUnitTest {
     }
 
     @Test
-    fun removing_note_test(): Unit = runBlocking {
+    fun removing_and_undo_note_test() = runTest {
         val repository = NoteRepository.Base(TestCacheDataSource())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
         )
         repository.saveNote("TestHeader 1", "TestBody 1", "23:03 14.01")
 
-        val actual = repository.getNotesList()
+        var actual = repository.getNotesList()
 
-        assert(expected[0] == actual[0])
+        assertEquals(expected[0], actual[0])
 
-        val expectedDeletedNote = NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
-        val actualDeletedNote = repository.removeNote(0)
-
-        assert(expectedDeletedNote == actualDeletedNote)
+        repository.removeNote(0)
 
         try {
             repository.getNotesList()
         } catch (e: Exception) {
             assert(e is NoNotesException)
         }
+
+        repository.saveCachedNote()
+
+        actual = repository.getNotesList()
+        assertEquals(expected[0], actual[0])
     }
 
     @Test
-    fun saving_multiple_notes_test(): Unit = runBlocking {
+    fun saving_multiple_notes_test() = runTest {
         val repository = NoteRepository.Base(TestCacheDataSource())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01"),
@@ -84,7 +89,7 @@ class BaseNoteRepositoryUnitTest {
     }
 
     @Test
-    fun updating_note_test(): Unit = runBlocking {
+    fun updating_note_test() = runTest {
         val repository = NoteRepository.Base(TestCacheDataSource())
         var expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")

@@ -6,12 +6,14 @@ import github.mik0war.hinote.data.cache.CacheDataSource
 import github.mik0war.hinote.data.model.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class BaseCacheDataSource {
     @Test
-    fun getting_empty_list_test(): Unit = runBlocking{
+    fun getting_empty_list_test() = runTest{
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         try{
             cacheDataSource.getNotesList()
@@ -21,7 +23,7 @@ class BaseCacheDataSource {
     }
 
     @Test
-    fun saving_note_test(): Unit = runBlocking {
+    fun saving_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
@@ -34,7 +36,7 @@ class BaseCacheDataSource {
     }
 
     @Test
-    fun removing_note_test(): Unit = runBlocking {
+    fun removing_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
@@ -58,14 +60,14 @@ class BaseCacheDataSource {
     }
 
     @Test
-    fun saving_multiple_notes_test(): Unit = runBlocking {
+    fun saving_multiple_notes_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01"),
             NoteDataModel(0, "TestHeader 2", "TestBody 2", "23:04 14.01"),
             NoteDataModel(0, "TestHeader 3", "TestBody 3", "23:05 14.01")
         )
-        cacheDataSource.save("TestHeader 1", "TestBody 1", "23:03 14.01")
+        cacheDataSource.save(NoteDataModel(0,"TestHeader 1", "TestBody 1", "23:03 14.01"))
 
         var actual = cacheDataSource.getNotesList()
 
@@ -87,7 +89,7 @@ class BaseCacheDataSource {
     }
 
     @Test
-    fun updating_note_test(): Unit = runBlocking {
+    fun updating_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         var expected = listOf(
             NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")

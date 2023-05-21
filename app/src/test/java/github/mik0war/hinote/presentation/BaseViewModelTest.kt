@@ -3,7 +3,6 @@ package github.mik0war.hinote.presentation
 import github.mik0war.hinote.core.data.TestCacheDataSource
 import github.mik0war.hinote.core.domain.TestCurrentDateTime
 import github.mik0war.hinote.core.domain.TestResourceManager
-import github.mik0war.hinote.core.presentation.TestCachedNote
 import github.mik0war.hinote.core.presentation.TestNoteLiveData
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
@@ -37,7 +36,6 @@ class BaseViewModelTest {
         val viewModel = NoteViewModel.Base(
             interactor,
             liveData,
-            TestCachedNote(),
             StandardTestDispatcher(testScheduler)
         )
 
@@ -75,22 +73,30 @@ class BaseViewModelTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
 
         var expected: List<NoteUIModel> = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
         )
-        viewModel.createNote("TestHeader 1", "TestBody 1", "23:03 14.01").join()
+        viewModel.createNote("TestHeader 1", "TestBody 1").join()
 
         viewModel.showNoteList().join()
         var actual = liveData.notesList
 
         assertEquals(expected[0], actual[0])
 
-        val expectedDeletedNote = NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
         viewModel.removeNote(0).join()
-        val actualDeletedNote = viewModel.getCached()
-
-        assertEquals(expectedDeletedNote, actualDeletedNote)
 
         expected = listOf(NoteUIModel.Failed("There are no notes. Create new one"))
+
+        viewModel.showNoteList().join()
+        actual = liveData.notesList
+
+        assertEquals(expected[0], actual[0])
+        assertEquals(1, actual.size)
+
+        viewModel.undoDeleting().join()
+
+        expected = listOf(
+        NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+        )
 
         viewModel.showNoteList().join()
         actual = liveData.notesList
@@ -135,9 +141,9 @@ class BaseViewModelTest {
     fun updating_note_test() = runTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
         var expected = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
         )
-        viewModel.createNote("TestHeader 1", "TestBody 1", "23:03 14.01").join()
+        viewModel.createNote("TestHeader 1", "TestBody 1").join()
 
         viewModel.showNoteList().join()
         var actual = liveData.notesList
@@ -145,7 +151,7 @@ class BaseViewModelTest {
         assertEquals(expected[0], actual[0])
 
         expected = listOf(
-            NoteUIModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "23:03 14.01")
+            NoteUIModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "00:00 00.00")
         )
 
         viewModel.updateNote(0, "NewTestHeader 1", "NewTestBody 1").join()

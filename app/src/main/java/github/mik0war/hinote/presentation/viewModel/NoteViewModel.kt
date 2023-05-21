@@ -18,7 +18,7 @@ interface NoteViewModel : GetLiveData {
     fun updateNote(id: Int, header: String, body: String): Job
     fun removeNote(id: Int): Job
     fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
-    fun undoDelete(): Job
+    fun undoDeleting(): Job
 
     class Base(
         private val interactor: NoteInteractor,
@@ -52,7 +52,7 @@ interface NoteViewModel : GetLiveData {
             liveData.observe(owner, observer)
         }
 
-        override fun undoDelete(): Job =
+        override fun undoDeleting(): Job =
             viewModelScope.launch(dispatcher) {
                 interactor.undoDeletingNote()
                 showNoteList()

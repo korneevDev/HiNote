@@ -1,6 +1,6 @@
 package github.mik0war.hinote.core.data
 
-import github.mik0war.hinote.data.model.NoteDataModel
+import github.mik0war.hinote.data.entity.NoteDataModel
 
 class TestNoteModel(
     val id: Int,

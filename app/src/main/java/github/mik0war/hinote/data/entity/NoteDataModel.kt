@@ -1,7 +1,7 @@
-package github.mik0war.hinote.data.model
+package github.mik0war.hinote.data.entity
 
 import github.mik0war.hinote.data.cache.Note
-import github.mik0war.hinote.domain.model.NoteModel
+import github.mik0war.hinote.domain.entity.NoteModel
 
 data class NoteDataModel(
     private val id: Int,

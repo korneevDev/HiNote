@@ -1,7 +1,7 @@
-package github.mik0war.hinote.domain.model
+package github.mik0war.hinote.domain.entity
 
 import github.mik0war.hinote.core.Mapper
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 interface NoteModel : Mapper<NoteUIModel> {
     data class Success(

@@ -7,7 +7,7 @@ import github.mik0war.hinote.R
 import github.mik0war.hinote.presentation.CustomTextViewImpl
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 abstract class NoteViewHolder(
     view: View,

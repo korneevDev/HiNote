@@ -7,7 +7,7 @@ import github.mik0war.hinote.core.presentation.TestNoteLiveData
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

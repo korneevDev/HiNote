@@ -1,7 +1,7 @@
 package github.mik0war.hinote.domain
 
 import github.mik0war.hinote.R
-import github.mik0war.hinote.domain.model.NoteModel
+import github.mik0war.hinote.domain.entity.NoteModel
 import java.io.IOException
 
 interface ExceptionHandler {

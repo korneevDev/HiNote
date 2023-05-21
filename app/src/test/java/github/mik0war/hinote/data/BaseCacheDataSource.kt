@@ -3,7 +3,7 @@ package github.mik0war.hinote.data
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.data.TestNoteDAO
 import github.mik0war.hinote.data.cache.CacheDataSource
-import github.mik0war.hinote.data.model.NoteDataModel
+import github.mik0war.hinote.data.entity.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi

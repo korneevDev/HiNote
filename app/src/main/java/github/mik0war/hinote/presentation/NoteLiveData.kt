@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 import github.mik0war.hinote.presentation.recyclerView.NoteDiffUtilsCallback
 import github.mik0war.hinote.presentation.viewModel.GetLiveData
 

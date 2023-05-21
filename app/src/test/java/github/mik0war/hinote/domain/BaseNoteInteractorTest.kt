@@ -4,7 +4,7 @@ import github.mik0war.hinote.core.data.TestCacheDataSource
 import github.mik0war.hinote.core.domain.TestCurrentDateTime
 import github.mik0war.hinote.core.domain.TestResourceManager
 import github.mik0war.hinote.data.NoteRepository
-import github.mik0war.hinote.domain.model.NoteModel
+import github.mik0war.hinote.domain.entity.NoteModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

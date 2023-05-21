@@ -1,7 +1,7 @@
 package github.mik0war.hinote.presentation.recyclerView
 
 import androidx.recyclerview.widget.DiffUtil
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 class NoteDiffUtilsCallback(
     private val oldList: List<NoteUIModel>,

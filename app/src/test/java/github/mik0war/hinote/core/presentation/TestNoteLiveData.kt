@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import github.mik0war.hinote.presentation.NoteLiveData
-import github.mik0war.hinote.presentation.model.NoteUIModel
+import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 class TestNoteLiveData : NoteLiveData {
     var observeCount = 0

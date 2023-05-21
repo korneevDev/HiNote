@@ -1,7 +1,7 @@
 package github.mik0war.hinote.data.cache
 
 import github.mik0war.hinote.core.MapperParametrised
-import github.mik0war.hinote.data.model.NoteDataModel
+import github.mik0war.hinote.data.entity.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
 
 interface CacheDataSource {

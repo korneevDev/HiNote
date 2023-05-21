@@ -1,4 +1,4 @@
-package github.mik0war.hinote.core
+package github.mik0war.hinote.core.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer

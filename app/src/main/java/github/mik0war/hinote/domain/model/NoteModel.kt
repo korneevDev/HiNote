@@ -10,7 +10,7 @@ interface NoteModel : Mapper<NoteUIModel> {
         private val body: String,
         private var dateTime: String
     ) : NoteModel {
-        override fun mapTo() = NoteUIModel.SuccessNoteUIModel(id, header, body, dateTime)
+        override fun mapTo() = NoteUIModel.Success(id, header, body, dateTime)
     }
 
     data class Failed(

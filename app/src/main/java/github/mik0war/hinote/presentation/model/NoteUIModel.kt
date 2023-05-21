@@ -24,7 +24,7 @@ abstract class NoteUIModel(
     open fun delete(listener: NoteDeleteClickListener){}
     open fun getContent(editClickListener: NoteEditClickListener){}
 
-    data class SuccessNoteUIModel(
+    data class Success(
         private val id: Int,
         private val header: String,
         val body: String,
@@ -41,7 +41,7 @@ abstract class NoteUIModel(
         }
 
         override fun same(noteUIModel: NoteUIModel): Boolean =
-            noteUIModel is SuccessNoteUIModel && noteUIModel.matches(id)
+            noteUIModel is Success && noteUIModel.matches(id)
 
         override fun matches(id: Int): Boolean = this.id == id
 

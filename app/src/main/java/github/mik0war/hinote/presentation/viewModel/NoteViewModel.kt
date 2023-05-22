@@ -30,35 +30,25 @@ interface NoteViewModel : GetLiveData {
                 liveData.showNotesList(interactor.getNoteList().map { it.mapTo() })
             }
 
-        override fun createNote(header: String, body: String) =
-            viewModelScope.launch(dispatcher) {
-                interactor.addNote(header, body)
-                showNoteList()
-            }
+        override fun createNote(header: String, body: String) = handle { interactor.addNote(header, body) }
 
         override fun updateNote(id: Int, header: String, body: String) =
-            viewModelScope.launch(dispatcher) {
-                interactor.updateNote(id, header, body)
-                showNoteList()
-            }
+            handle { interactor.updateNote(id, header, body) }
 
-        override fun removeNote(id: Int) =
-            viewModelScope.launch(dispatcher) {
-                interactor.removeNote(id)
-                showNoteList()
-            }
+        override fun removeNote(id: Int) = handle { interactor.removeNote(id) }
 
+        override fun undoDeleting(): Job = handle { interactor.undoDeletingNote() }
         override fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>) {
             liveData.observe(owner, observer)
         }
 
-        override fun undoDeleting(): Job =
-            viewModelScope.launch(dispatcher) {
-                interactor.undoDeletingNote()
-                showNoteList()
-            }
-
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()
         override fun getDiffUtilResult() = liveData.getDiffUtilResult()
+
+        private fun handle(block: suspend ()-> Unit): Job =
+            viewModelScope.launch(dispatcher) {
+                block.invoke()
+                showNoteList()
+            }
     }
 }

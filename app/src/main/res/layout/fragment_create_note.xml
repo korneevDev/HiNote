@@ -26,7 +26,7 @@
                     android:backgroundTint="@color/background_dark"
                     android:hint="@string/header_of_note"
                     android:autofillHints="@string/header_of_note"
-                    android:inputType="text"/>
+                    android:inputType="textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

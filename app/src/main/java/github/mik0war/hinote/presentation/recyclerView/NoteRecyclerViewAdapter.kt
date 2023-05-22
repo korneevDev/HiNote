@@ -11,7 +11,7 @@ import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 class NoteRecyclerViewAdapter(
     private val notesLiveData: GetLiveData,
-    private val listener: NoteDeleteClickListener,
+    private val deleteClickListener: NoteDeleteClickListener,
     private val editClickListener: NoteEditClickListener
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
@@ -31,7 +31,7 @@ class NoteRecyclerViewAdapter(
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return if (isEmptyList) NoteViewHolder.Empty(view)
             else NoteViewHolder.Base(
-            listener, editClickListener, view
+            deleteClickListener, editClickListener, view
         )
     }
 

@@ -1,5 +1,5 @@
 # HiNote
-Simple notes to remember important things
+CRUD application. Helps save text notes, update and delete them. PET-project
 
 # Principles
 
@@ -22,6 +22,8 @@ Kotlin
 ## Libraries
 
 - Coroutines
+- ROOM
+- Navigation component
 
 ## Tests
 

@@ -10,7 +10,13 @@ interface NoteModel : Mapper<NoteUIModel> {
         private val body: String,
         private var dateTime: String
     ) : NoteModel {
-        override fun mapTo() = NoteUIModel.Success(id, header, body, dateTime)
+        override fun mapTo() = NoteUIModel.Success(id, header, body, dateTimeToUI())
+
+        private fun dateTimeToUI(): String{
+            val (date, time) = dateTime.split(" ")
+
+            return "$time ${date.subSequence(5, date.length)}"
+        }
     }
 
     data class Failed(

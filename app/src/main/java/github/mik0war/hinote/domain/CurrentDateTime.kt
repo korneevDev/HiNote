@@ -9,7 +9,7 @@ interface CurrentDateTime {
 
     class Base: CurrentDateTime{
         override fun getCurrentTime(): String {
-            val sdf = SimpleDateFormat("HH:mm - dd.MM", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
             return sdf.format(Date())
         }
     }

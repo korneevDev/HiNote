@@ -37,7 +37,7 @@ class BaseNoteInteractorTest {
     fun saving_note_test()= runTest() {
         val interactor = initInteractor()
         val expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "0000-00-00 00:00:00")
         )
         interactor.addNote("TestHeader 1", "TestBody 1")
 
@@ -51,7 +51,7 @@ class BaseNoteInteractorTest {
     fun removing_note_test()= runTest {
         val interactor = initInteractor()
         var expected: List<NoteModel> = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "0000-00-00 00:00:00")
         )
         interactor.addNote("TestHeader 1", "TestBody 1")
 
@@ -68,7 +68,7 @@ class BaseNoteInteractorTest {
         assertEquals(1, actual.size)
 
         expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "0000-00-00 00:00:00")
         )
         interactor.undoDeletingNote()
         actual = interactor.getNoteList()
@@ -81,9 +81,9 @@ class BaseNoteInteractorTest {
     fun saving_multiple_notes_test() = runTest {
         val interactor = initInteractor()
         val expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00"),
-            NoteModel.Success(1, "TestHeader 2", "TestBody 2", "11:11 11.11"),
-            NoteModel.Success(2, "TestHeader 3", "TestBody 3", "22:22 22.22")
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "0000-00-00 00:00:00"),
+            NoteModel.Success(1, "TestHeader 2", "TestBody 2", "1111-11-11 11:11:11"),
+            NoteModel.Success(2, "TestHeader 3", "TestBody 3", "2222-22-22 22:22:22")
         )
         interactor.addNote("TestHeader 1", "TestBody 1")
 
@@ -110,7 +110,7 @@ class BaseNoteInteractorTest {
     fun updating_note_test() = runTest {
         val interactor = initInteractor()
         var expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", "0000-00-00 00:00:00")
         )
         interactor.addNote("TestHeader 1", "TestBody 1")
 
@@ -119,7 +119,7 @@ class BaseNoteInteractorTest {
         assertEquals(expected[0], actual[0])
 
         expected = listOf(
-            NoteModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "00:00 00.00")
+            NoteModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "0000-00-00 00:00:00")
         )
 
         interactor.updateNote(0, "NewTestHeader 1", "NewTestBody 1")

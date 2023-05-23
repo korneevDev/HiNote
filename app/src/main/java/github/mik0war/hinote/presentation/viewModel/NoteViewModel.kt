@@ -45,7 +45,7 @@ interface NoteViewModel : GetLiveData {
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()
         override fun getDiffUtilResult() = liveData.getDiffUtilResult()
 
-        private fun handle(block: suspend ()-> Unit): Job =
+        private inline fun handle(crossinline block: suspend ()-> Unit): Job =
             viewModelScope.launch(dispatcher) {
                 block.invoke()
                 showNoteList()

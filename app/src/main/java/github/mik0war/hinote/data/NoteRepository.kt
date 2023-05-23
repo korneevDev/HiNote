@@ -35,7 +35,7 @@ interface NoteRepository {
             cachedNote = handle { cacheDataSource.remove(id) }
         }
 
-        private suspend fun <T>handle(block: suspend ()-> T) =
+        private suspend inline fun <T>handle(crossinline block: suspend ()-> T) =
             withContext(dispatcher) {
                 try {
                     return@withContext block.invoke()

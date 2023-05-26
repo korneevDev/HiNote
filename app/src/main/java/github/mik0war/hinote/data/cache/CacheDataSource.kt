@@ -3,6 +3,7 @@ package github.mik0war.hinote.data.cache
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.data.entity.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
+import javax.inject.Inject
 
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
@@ -11,7 +12,7 @@ interface CacheDataSource {
     suspend fun update(id: Int, newHeader: String, newBody: String)
     suspend fun remove(id: Int): NoteDataModel
 
-    class Base(
+    class Base @Inject constructor(
         private val mapper: MapperParametrised<NoteDataModel>,
         private val noteDAO: NoteDAO
     ): CacheDataSource {

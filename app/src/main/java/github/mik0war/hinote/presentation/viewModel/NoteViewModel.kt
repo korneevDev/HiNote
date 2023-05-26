@@ -4,13 +4,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import github.mik0war.hinote.di.MainDispatcher
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.presentation.NoteLiveData
 import github.mik0war.hinote.presentation.entity.NoteUIModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 interface NoteViewModel : GetLiveData {
     fun showNoteList(): Job
@@ -20,10 +21,10 @@ interface NoteViewModel : GetLiveData {
     fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
     fun undoDeleting(): Job
 
-    class Base(
+    class Base @Inject constructor(
         private val interactor: NoteInteractor,
         private val liveData: NoteLiveData,
-        private val dispatcher: CoroutineDispatcher = Dispatchers.Main
+        @MainDispatcher private val dispatcher: CoroutineDispatcher
     ) : NoteViewModel, ViewModel() {
         override fun showNoteList() =
             viewModelScope.launch(dispatcher) {

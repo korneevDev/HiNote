@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import github.mik0war.hinote.presentation.entity.NoteUIModel
 import github.mik0war.hinote.presentation.recyclerView.NoteDiffUtilsCallback
 import github.mik0war.hinote.presentation.viewModel.GetLiveData
+import javax.inject.Inject
 
 interface NoteLiveData : GetLiveData {
     fun showNotesList(notesList: List<NoteUIModel>)
@@ -14,7 +15,7 @@ interface NoteLiveData : GetLiveData {
     fun observe(observer: Observer<List<NoteUIModel>>)
 
 
-    class Base : NoteLiveData{
+    class Base @Inject constructor() : NoteLiveData{
         private val notes = MutableLiveData<List<NoteUIModel>>()
         private lateinit var diffResult: DiffUtil.DiffResult
 

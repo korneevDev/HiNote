@@ -9,10 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
+import github.mik0war.hinote.presentation.NotesActivity
 import github.mik0war.hinote.presentation.recyclerView.NoteRecyclerViewAdapter
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
@@ -25,7 +25,7 @@ class NoteListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = (requireActivity().application as NotesApp).viewModel
+        viewModel = (requireActivity() as NotesActivity).viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

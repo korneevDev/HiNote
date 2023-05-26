@@ -2,9 +2,10 @@ package github.mik0war.hinote.data
 
 import github.mik0war.hinote.data.cache.CacheDataSource
 import github.mik0war.hinote.data.entity.NoteDataModel
+import github.mik0war.hinote.di.IODispatcher
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
@@ -13,9 +14,9 @@ interface NoteRepository {
     suspend fun updateNote(id: Int, header: String, body: String)
     suspend fun removeNote(id: Int)
 
-    class Base(
+    class Base @Inject constructor(
         private val cacheDataSource: CacheDataSource,
-        private val dispatcher: CoroutineDispatcher =  Dispatchers.IO
+        @IODispatcher private val dispatcher: CoroutineDispatcher
     ) : NoteRepository {
         private var cachedNote: NoteDataModel? = null
         override suspend fun getNotesList(): List<NoteDataModel> =

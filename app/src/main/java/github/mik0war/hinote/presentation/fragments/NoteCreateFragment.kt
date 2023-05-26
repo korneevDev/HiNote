@@ -8,8 +8,8 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import github.mik0war.hinote.NotesApp
 import github.mik0war.hinote.R
+import github.mik0war.hinote.presentation.NotesActivity
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
 class NoteCreateFragment : Fragment() {
@@ -21,7 +21,7 @@ class NoteCreateFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = (requireActivity().application as NotesApp).viewModel
+        viewModel = (requireActivity() as NotesActivity).viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

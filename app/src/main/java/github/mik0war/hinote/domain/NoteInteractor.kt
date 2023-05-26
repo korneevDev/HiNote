@@ -2,6 +2,7 @@ package github.mik0war.hinote.domain
 
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.entity.NoteModel
+import javax.inject.Inject
 
 interface NoteInteractor {
     suspend fun getNoteList(): List<NoteModel>
@@ -10,7 +11,7 @@ interface NoteInteractor {
     suspend fun updateNote(id: Int, header: String, body: String)
     suspend fun removeNote(id: Int)
 
-    class Base(
+    class Base @Inject constructor(
         private val repository: NoteRepository,
         private val exceptionHandler: ExceptionHandler,
         private val currentDateTime: CurrentDateTime

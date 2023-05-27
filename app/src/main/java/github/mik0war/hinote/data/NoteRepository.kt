@@ -11,7 +11,7 @@ interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
     suspend fun saveNote(header: String, body: String, dateTime: String)
     suspend fun saveCachedNote()
-    suspend fun updateNote(id: Int, header: String, body: String)
+    suspend fun updateNote(id: Int, header: String, body: String, dateTime: String)
     suspend fun removeNote(id: Int)
 
     class Base @Inject constructor(
@@ -29,8 +29,8 @@ interface NoteRepository {
             cachedNote = null
         }
 
-        override suspend fun updateNote(id: Int, header: String, body: String)  =
-            handle { cacheDataSource.update(id, header, body) }
+        override suspend fun updateNote(id: Int, header: String, body: String, dateTime: String)  =
+            handle { cacheDataSource.update(id, header, body, dateTime) }
 
         override suspend fun removeNote(id: Int) {
             cachedNote = handle { cacheDataSource.remove(id) }

@@ -14,5 +14,6 @@ class NoteDiffUtilsCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].same(newList[newItemPosition])
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = true
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+        oldList[oldItemPosition] == newList[newItemPosition]
 }

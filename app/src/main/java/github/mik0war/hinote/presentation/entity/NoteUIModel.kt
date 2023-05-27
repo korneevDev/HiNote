@@ -52,7 +52,7 @@ abstract class NoteUIModel(
         }
 
 
-        override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime)
+        override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime, null)
     }
 
     data class Failed(val body: String) : NoteUIModel(body) {

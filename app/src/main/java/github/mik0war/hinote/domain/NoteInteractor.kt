@@ -33,7 +33,7 @@ interface NoteInteractor {
             repository.saveNote(header, body, currentDateTime.getCurrentTime())
 
         override suspend fun updateNote(id: Int, header: String, body: String) {
-            repository.updateNote(id, header, body)
+            repository.updateNote(id, header, body, currentDateTime.getCurrentTime())
         }
 
         override suspend fun removeNote(id: Int) = repository.removeNote(id)

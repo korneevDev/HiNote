@@ -1,10 +1,12 @@
-package github.mik0war.hinote.data.cache
+package github.mik0war.hinote.data.cache.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class],
+    version = 2,
+)
 abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDAO
 }

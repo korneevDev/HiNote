@@ -11,17 +11,16 @@ import javax.inject.Singleton
 
 @Module
 class RoomModule (private val context: Context) {
-    val MIGRATION_1_2 = object : Migration(1, 2){
+    private val migration_1_2 = object : Migration(1, 2){
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE note ADD COLUMN lastEditedDateTime TEXT NUll")
         }
-
     }
     private val db: NoteDatabase = Room.databaseBuilder(
         context,
         NoteDatabase::class.java, "database-note"
     )
-        .addMigrations(MIGRATION_1_2)
+        .addMigrations(migration_1_2)
         .build()
     @Singleton
     @Provides

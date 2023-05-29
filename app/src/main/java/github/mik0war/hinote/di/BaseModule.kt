@@ -10,6 +10,7 @@ import github.mik0war.hinote.domain.CurrentDateTime
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.domain.ResourceManager
+import github.mik0war.hinote.presentation.DateTimeFormatter
 import github.mik0war.hinote.presentation.NoteLiveData
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
@@ -32,5 +33,7 @@ abstract class BaseModule {
     @Binds
     abstract fun provideVM(viewModel: NoteViewModel.Base): NoteViewModel
     @Binds
-    abstract fun provide(liveData: NoteLiveData.Base): NoteLiveData
+    abstract fun provideLiveData(liveData: NoteLiveData.Base): NoteLiveData
+    @Binds
+    abstract fun provideDateFormatter(dateTimeFormatter: DateTimeFormatter.LastEditedWithLabel): DateTimeFormatter
 }

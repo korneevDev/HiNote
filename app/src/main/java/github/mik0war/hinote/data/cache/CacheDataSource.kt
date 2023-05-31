@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 interface CacheDataSource {
     suspend fun getNotesList() : List<NoteDataModel>
-    suspend fun save(header: String, body: String, dateTime: String)
+    suspend fun save(header: String, body: String, dateTime: Long)
     suspend fun save(note: NoteDataModel)
-    suspend fun update(id: Int, newHeader: String, newBody: String, newDateTime: String)
+    suspend fun update(id: Int, newHeader: String, newBody: String, newDateTime: Long)
     suspend fun remove(id: Int): NoteDataModel
 
     class Base @Inject constructor(
@@ -26,7 +26,7 @@ interface CacheDataSource {
         }
 
 
-        override suspend fun save(header: String, body: String, dateTime: String) {
+        override suspend fun save(header: String, body: String, dateTime: Long) {
             noteDAO.createNote(Note(header, body, dateTime, null))
         }
 
@@ -34,7 +34,7 @@ interface CacheDataSource {
             noteDAO.createNote(note.mapToNote())
         }
 
-        override suspend fun update(id: Int, newHeader: String, newBody: String, newDateTime: String) {
+        override suspend fun update(id: Int, newHeader: String, newBody: String, newDateTime: Long) {
             val note = noteDAO.getNoteByID(id)
             val newNote = note.update(newHeader, newBody, newDateTime)
             noteDAO.update(newNote)

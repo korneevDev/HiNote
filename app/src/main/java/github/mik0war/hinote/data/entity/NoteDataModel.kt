@@ -7,8 +7,8 @@ data class NoteDataModel(
     private val id: Int,
     private val header: String,
     private val body: String,
-    private val dateTime: String,
-    private val lastEditedDateTime: String?
+    private val dateTime: Long,
+    private val lastEditedDateTime: Long?
 ){
     fun mapToNoteModel(): NoteModel =
         NoteModel.Success(id, header, body, dateTime, lastEditedDateTime)

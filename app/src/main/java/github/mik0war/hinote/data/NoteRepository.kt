@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 interface NoteRepository {
     suspend fun getNotesList() : List<NoteDataModel>
-    suspend fun saveNote(header: String, body: String, dateTime: String)
+    suspend fun saveNote(header: String, body: String, dateTime: Long)
     suspend fun saveCachedNote()
-    suspend fun updateNote(id: Int, header: String, body: String, dateTime: String)
+    suspend fun updateNote(id: Int, header: String, body: String, dateTime: Long)
     suspend fun removeNote(id: Int)
 
     class Base @Inject constructor(
@@ -21,7 +21,7 @@ interface NoteRepository {
         private var cachedNote: NoteDataModel? = null
         override suspend fun getNotesList(): List<NoteDataModel> =
             handle { cacheDataSource.getNotesList() }
-        override suspend fun saveNote(header: String, body: String, dateTime: String) =
+        override suspend fun saveNote(header: String, body: String, dateTime: Long) =
             handle { cacheDataSource.save(header, body, dateTime) }
 
         override suspend fun saveCachedNote() {
@@ -29,7 +29,7 @@ interface NoteRepository {
             cachedNote = null
         }
 
-        override suspend fun updateNote(id: Int, header: String, body: String, dateTime: String)  =
+        override suspend fun updateNote(id: Int, header: String, body: String, dateTime: Long)  =
             handle { cacheDataSource.update(id, header, body, dateTime) }
 
         override suspend fun removeNote(id: Int) {

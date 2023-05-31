@@ -1,14 +1,12 @@
 package github.mik0war.hinote.presentation.entity
 
-import github.mik0war.hinote.core.Mapper
-import github.mik0war.hinote.domain.entity.NoteModel
 import github.mik0war.hinote.presentation.CustomTextView
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
 
 abstract class NoteUIModel(
     private val text: String,
-) : Mapper<NoteModel>{
+){
     fun body() = text
     open fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView) {
         map(bodyView)
@@ -50,12 +48,7 @@ abstract class NoteUIModel(
         override fun getContent(editClickListener: NoteEditClickListener) {
             editClickListener.edit(Triple(id, header, body))
         }
-
-
-        override fun mapTo(): NoteModel = NoteModel.Success(id, header, body(), dateTime, null)
     }
 
-    data class Failed(val body: String) : NoteUIModel(body) {
-        override fun mapTo() = NoteModel.Failed(body())
-    }
+    data class Failed(val body: String) : NoteUIModel(body)
 }

@@ -9,12 +9,12 @@ sealed interface NoteModel {
         private val id: Int,
         private val header: String,
         private val body: String,
-        private var dateTime: String,
-        private val lastEditedDateTime: String?
+        private var dateTime: Long,
+        private val lastEditedDateTime: Long?
     ) : NoteModel {
         override fun mapTo(dateTimeFormatter: DateTimeFormatter) =
             NoteUIModel.Success(id, header, body,
-                dateTimeFormatter.formatDate(dateTime.toLong(), lastEditedDateTime?.toLong()))
+                dateTimeFormatter.formatDate(dateTime, lastEditedDateTime))
     }
 
     data class Failed(

@@ -8,21 +8,19 @@ import github.mik0war.hinote.data.cache.room.NoteDatabase
 import javax.inject.Singleton
 
 @Module
-class RoomModule (private val context: Context) {
-    private val db: NoteDatabase = Room.databaseBuilder(
+class RoomModule {
+    companion object{
+        const val DB_NAME = "database-note"
+    }
+    @Singleton
+    @Provides
+    fun provideRoomDB(context: Context) = Room.databaseBuilder(
         context,
-        NoteDatabase::class.java, "database-note"
-    )
-        .build()
-    @Singleton
-    @Provides
-    fun provideRoomDB() = db
+        NoteDatabase::class.java, DB_NAME
+    ).build()
 
     @Singleton
     @Provides
-    fun provideRoomDAO() = db.noteDao()
-
-    @Provides
-    fun provideContext() = context
+    fun provideRoomDAO(db: NoteDatabase) = db.noteDao()
 
 }

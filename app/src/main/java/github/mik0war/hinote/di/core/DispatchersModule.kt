@@ -1,4 +1,4 @@
-package github.mik0war.hinote.di
+package github.mik0war.hinote.di.core
 
 import dagger.Module
 import dagger.Provides
@@ -8,7 +8,6 @@ import javax.inject.Qualifier
 
 @Module
 class DispatchersModule {
-
     @IODispatcher
     @Provides
     fun provideIODispatcher(): CoroutineDispatcher = Dispatchers.IO

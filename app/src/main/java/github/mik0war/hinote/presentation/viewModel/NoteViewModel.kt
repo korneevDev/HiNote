@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import github.mik0war.hinote.di.MainDispatcher
+import github.mik0war.hinote.di.core.MainDispatcher
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.presentation.DateTimeFormatter
 import github.mik0war.hinote.presentation.NoteLiveData

@@ -1,4 +1,4 @@
-package github.mik0war.hinote.di
+package github.mik0war.hinote.di.data
 
 import android.content.Context
 import androidx.room.Room

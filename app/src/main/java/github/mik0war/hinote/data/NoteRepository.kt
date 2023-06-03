@@ -2,7 +2,7 @@ package github.mik0war.hinote.data
 
 import github.mik0war.hinote.data.cache.CacheDataSource
 import github.mik0war.hinote.data.entity.NoteDataModel
-import github.mik0war.hinote.di.IODispatcher
+import github.mik0war.hinote.di.core.IODispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

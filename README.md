@@ -8,6 +8,7 @@ CRUD application. Helps save text notes, update and delete them. PET-project
 - MVVM
 - SOLID
 - Pattern repository
+- Pattern Observer
 --------------------
 - KISS
 - DRY

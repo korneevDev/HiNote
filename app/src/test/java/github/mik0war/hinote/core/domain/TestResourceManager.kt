@@ -1,7 +1,7 @@
 package github.mik0war.hinote.core.domain
 
 import github.mik0war.hinote.R
-import github.mik0war.hinote.domain.ResourceManager
+import github.mik0war.hinote.core.ResourceManager
 
 class TestResourceManager : ResourceManager {
     override fun getString(resId: Int): String =

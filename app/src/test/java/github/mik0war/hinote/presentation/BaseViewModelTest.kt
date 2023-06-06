@@ -1,10 +1,13 @@
 package github.mik0war.hinote.presentation
 
-import github.mik0war.hinote.core.data.TestCacheDataSource
+import github.mik0war.hinote.core.MapperParametrised
+import github.mik0war.hinote.core.data.TestNoteDAO
 import github.mik0war.hinote.core.domain.TestCurrentDateTime
 import github.mik0war.hinote.core.domain.TestResourceManager
+import github.mik0war.hinote.core.presentation.TestDateFormatter
 import github.mik0war.hinote.core.presentation.TestNoteLiveData
 import github.mik0war.hinote.data.NoteRepository
+import github.mik0war.hinote.data.cache.CacheDataSource
 import github.mik0war.hinote.domain.ExceptionHandler
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.presentation.entity.NoteUIModel
@@ -21,7 +24,13 @@ class BaseViewModelTest {
     private fun initViewModel(
         testScheduler: TestCoroutineScheduler
     ): Pair<NoteViewModel.Base, TestNoteLiveData> {
-        val repository = NoteRepository.Base(TestCacheDataSource())
+        val repository = NoteRepository.Base(
+            CacheDataSource.Base(
+                MapperParametrised.ToDataModel(),
+                TestNoteDAO()
+            ),
+            StandardTestDispatcher(testScheduler)
+        )
         val interactor = NoteInteractor.Base(
             repository,
             ExceptionHandler.Base(
@@ -36,6 +45,7 @@ class BaseViewModelTest {
         val viewModel = NoteViewModel.Base(
             interactor,
             liveData,
+            TestDateFormatter(),
             StandardTestDispatcher(testScheduler)
         )
 
@@ -57,7 +67,7 @@ class BaseViewModelTest {
     fun saving_note_test() = runTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
         val expected = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "0 null")
         )
         viewModel.createNote("TestHeader 1", "TestBody 1").join()
         viewModel.showNoteList().join()
@@ -73,7 +83,7 @@ class BaseViewModelTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
 
         var expected: List<NoteUIModel> = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "0 null")
         )
         viewModel.createNote("TestHeader 1", "TestBody 1").join()
 
@@ -95,7 +105,7 @@ class BaseViewModelTest {
         viewModel.undoDeleting().join()
 
         expected = listOf(
-        NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+        NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "0 null")
         )
 
         viewModel.showNoteList().join()
@@ -109,9 +119,9 @@ class BaseViewModelTest {
     fun saving_multiple_notes_test() = runTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
         val expected = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00"),
-            NoteUIModel.Success(1, "TestHeader 2", "TestBody 2", "11:11 11.11"),
-            NoteUIModel.Success(2, "TestHeader 3", "TestBody 3", "22:22 22.22")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "0 null"),
+            NoteUIModel.Success(0, "TestHeader 2", "TestBody 2", "1 null"),
+            NoteUIModel.Success(0, "TestHeader 3", "TestBody 3", "2 null")
         )
         viewModel.createNote("TestHeader 1", "TestBody 1").join()
 
@@ -126,7 +136,7 @@ class BaseViewModelTest {
         actual = liveData.notesList
 
         for(i: Int in actual.indices)
-            assert(expected[i] == actual[i])
+            assertEquals(expected[i], actual[i])
 
         viewModel.createNote("TestHeader 3", "TestBody 3").join()
 
@@ -141,7 +151,7 @@ class BaseViewModelTest {
     fun updating_note_test() = runTest {
         val (viewModel, liveData) = initViewModel(testScheduler)
         var expected = listOf(
-            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "00:00 00.00")
+            NoteUIModel.Success(0, "TestHeader 1", "TestBody 1", "0 null")
         )
         viewModel.createNote("TestHeader 1", "TestBody 1").join()
 
@@ -151,7 +161,7 @@ class BaseViewModelTest {
         assertEquals(expected[0], actual[0])
 
         expected = listOf(
-            NoteUIModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "00:00 00.00")
+            NoteUIModel.Success(0, "NewTestHeader 1", "NewTestBody 1", "0 1")
         )
 
         viewModel.updateNote(0, "NewTestHeader 1", "NewTestBody 1").join()

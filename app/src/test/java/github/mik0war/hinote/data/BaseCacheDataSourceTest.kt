@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BaseCacheDataSource {
+class BaseCacheDataSourceTest {
     @Test
     fun getting_empty_list_test() = runTest{
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
@@ -26,9 +26,9 @@ class BaseCacheDataSource {
     fun saving_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
-            NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+            NoteDataModel(0, "TestHeader 1", "TestBody 1", 2, null)
         )
-        cacheDataSource.save("TestHeader 1", "TestBody 1", "23:03 14.01")
+        cacheDataSource.save("TestHeader 1", "TestBody 1", 2)
 
         val actual = cacheDataSource.getNotesList()
 
@@ -39,15 +39,15 @@ class BaseCacheDataSource {
     fun removing_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
-            NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+            NoteDataModel(0, "TestHeader 1", "TestBody 1", 1, null)
         )
-        cacheDataSource.save("TestHeader 1", "TestBody 1", "23:03 14.01")
+        cacheDataSource.save("TestHeader 1", "TestBody 1", 1)
 
         val actual = cacheDataSource.getNotesList()
 
         assert(expected[0] == actual[0])
 
-        val expectedDeletedNote = NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+        val expectedDeletedNote = NoteDataModel(0, "TestHeader 1", "TestBody 1", 1, null)
         val actualDeletedNote = cacheDataSource.remove(0)
 
         assert(expectedDeletedNote == actualDeletedNote)
@@ -63,24 +63,24 @@ class BaseCacheDataSource {
     fun saving_multiple_notes_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         val expected = listOf(
-            NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01"),
-            NoteDataModel(0, "TestHeader 2", "TestBody 2", "23:04 14.01"),
-            NoteDataModel(0, "TestHeader 3", "TestBody 3", "23:05 14.01")
+            NoteDataModel(0, "TestHeader 1", "TestBody 1", 1, null),
+            NoteDataModel(0, "TestHeader 2", "TestBody 2", 2, null),
+            NoteDataModel(0, "TestHeader 3", "TestBody 3", 3, null)
         )
-        cacheDataSource.save(NoteDataModel(0,"TestHeader 1", "TestBody 1", "23:03 14.01"))
+        cacheDataSource.save(NoteDataModel(0,"TestHeader 1", "TestBody 1", 1, null))
 
         var actual = cacheDataSource.getNotesList()
 
         assertEquals(expected[0], actual[0])
 
-        cacheDataSource.save("TestHeader 2", "TestBody 2", "23:04 14.01")
+        cacheDataSource.save("TestHeader 2", "TestBody 2", 2)
 
         actual = cacheDataSource.getNotesList()
 
         for(i: Int in actual.indices)
             assertEquals(expected[i], actual[i])
 
-        cacheDataSource.save("TestHeader 3", "TestBody 3", "23:05 14.01")
+        cacheDataSource.save("TestHeader 3", "TestBody 3", 3)
 
         actual = cacheDataSource.getNotesList()
 
@@ -92,19 +92,19 @@ class BaseCacheDataSource {
     fun updating_note_test() = runTest {
         val cacheDataSource = CacheDataSource.Base(MapperParametrised.ToDataModel(), TestNoteDAO())
         var expected = listOf(
-            NoteDataModel(0, "TestHeader 1", "TestBody 1", "23:03 14.01")
+            NoteDataModel(0, "TestHeader 1", "TestBody 1", 12, null)
         )
-        cacheDataSource.save("TestHeader 1", "TestBody 1", "23:03 14.01")
+        cacheDataSource.save("TestHeader 1", "TestBody 1", 12)
 
         var actual = cacheDataSource.getNotesList()
 
         assert(expected[0] == actual[0])
 
         expected = listOf(
-            NoteDataModel(0, "NewTestHeader 1", "NewTestBody 1", "23:03 14.01")
+            NoteDataModel(0, "NewTestHeader 1", "NewTestBody 1", 12, 76543)
         )
 
-        cacheDataSource.update(0, "NewTestHeader 1", "NewTestBody 1")
+        cacheDataSource.update(0, "NewTestHeader 1", "NewTestBody 1", 76543)
 
         actual = cacheDataSource.getNotesList()
 

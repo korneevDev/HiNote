@@ -14,15 +14,33 @@
             android:id="@+id/action_NotesListFragment_to_CreateNoteFragment"
             app:destination="@id/CreateNoteFragment">
         </action>
+
+        <action
+            android:id="@+id/action_NotesListFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/CreateNoteFragment"
         android:name="github.mik0war.hinote.presentation.fragments.NoteCreateFragment"
         tools:layout="@layout/fragment_create_note">
 
-
         <action
             android:id="@+id/action_CreateNoteFragment_to_NotesListFragment"
             app:destination="@id/NotesListFragment" />
+        <action
+            android:id="@+id/action_CreateNoteFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="github.mik0war.hinote.presentation.fragments.SettingsFragment">
+
+        <action
+            android:id="@+id/action_SettingsFragment_to_NotesListFragment"
+            app:destination="@id/NotesListFragment" />
+        <action
+            android:id="@+id/action_SettingsFragment_to_CreateNoteFragment"
+            app:destination="@id/CreateNoteFragment" />
     </fragment>
 </navigation>

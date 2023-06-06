@@ -1,6 +1,7 @@
 package github.mik0war.hinote.domain
 
 import github.mik0war.hinote.R
+import github.mik0war.hinote.core.ResourceManager
 import github.mik0war.hinote.domain.entity.NoteModel
 import java.io.IOException
 import javax.inject.Inject

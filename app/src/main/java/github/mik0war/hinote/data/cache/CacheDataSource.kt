@@ -36,8 +36,10 @@ interface CacheDataSource {
 
         override suspend fun update(id: Int, newHeader: String, newBody: String, newDateTime: Long) {
             val note = noteDAO.getNoteByID(id)
-            val newNote = note.update(newHeader, newBody, newDateTime)
-            noteDAO.update(newNote)
+            if(note.header != newHeader || note.body != newBody) {
+                val newNote = note.update(newHeader, newBody, newDateTime)
+                noteDAO.update(newNote)
+            }
         }
 
         override suspend fun remove(id: Int): NoteDataModel {

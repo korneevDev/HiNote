@@ -4,7 +4,7 @@
     tools:context="github.mik0war.hinote.presentation.NotesActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/settings_icon"
+        app:showAsAction="always" />
 </menu>

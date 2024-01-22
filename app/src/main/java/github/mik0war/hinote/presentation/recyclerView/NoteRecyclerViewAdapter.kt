@@ -3,11 +3,12 @@ package github.mik0war.hinote.presentation.recyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import github.mik0war.hinote.R
-import github.mik0war.hinote.presentation.viewModel.GetLiveData
+import github.mik0war.hinote.databinding.NotesListEmptyObjectBinding
+import github.mik0war.hinote.databinding.NotesListObjectBinding
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
 import github.mik0war.hinote.presentation.entity.NoteUIModel
+import github.mik0war.hinote.presentation.viewModel.GetLiveData
 
 class NoteRecyclerViewAdapter(
     private val notesLiveData: GetLiveData,
@@ -21,17 +22,15 @@ class NoteRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val isEmptyList = viewType == 0
-
-        val layout = if (isEmptyList)
-            R.layout.notes_list_empty_object
-        else
-            R.layout.notes_list_object
-
-        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return if (isEmptyList) NoteViewHolder.Empty(view)
-            else NoteViewHolder.Base(
-            deleteClickListener, editClickListener, view
+        return if (viewType == 0) NoteViewHolder.Empty(
+            NotesListEmptyObjectBinding.inflate(
+                LayoutInflater.from(parent.context)
+            )
+        )
+        else NoteViewHolder.Base(
+            deleteClickListener,
+            editClickListener,
+            NotesListObjectBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 

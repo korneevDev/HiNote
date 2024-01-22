@@ -1,42 +1,41 @@
 package github.mik0war.hinote.presentation.recyclerView
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
-import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
-import github.mik0war.hinote.R
-import github.mik0war.hinote.presentation.CustomTextViewImpl
+import github.mik0war.hinote.databinding.NotesListEmptyObjectBinding
+import github.mik0war.hinote.databinding.NotesListObjectBinding
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
 import github.mik0war.hinote.presentation.entity.NoteUIModel
 
 abstract class NoteViewHolder(
     view: View,
-) : RecyclerView.ViewHolder(view){
-    protected val bodyTextView: CustomTextViewImpl = itemView.findViewById(R.id.noteBody)
-    open fun bind(item: NoteUIModel) = item.map(bodyTextView)
+) : RecyclerView.ViewHolder(view) {
+    abstract fun bind(item: NoteUIModel)
     class Base(
         private val listener: NoteDeleteClickListener,
         private val editClickListener: NoteEditClickListener,
-        view: View
-    ): NoteViewHolder(view){
-        private val headerTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteHeader)
-        private val dateTimeTextView = itemView.findViewById<CustomTextViewImpl>(R.id.noteDateTime)
+        private val binding: NotesListObjectBinding
+    ) : NoteViewHolder(binding.root) {
+        override fun bind(item: NoteUIModel) {
+            itemView.backgroundTintList = ColorStateList.valueOf(Color.BLUE)
+            item.map(binding.noteHeader, binding.noteBody, binding.noteDateTime)
 
-        private val deleteButton = itemView.findViewById<ImageButton>(R.id.deleteButton)
-        private val editButton = itemView.findViewById<ImageButton>(R.id.editButton)
-        override fun bind(item : NoteUIModel) {
-            item.map(headerTextView, bodyTextView, dateTimeTextView)
-
-            deleteButton.setOnClickListener{
+            binding.deleteButton.setOnClickListener {
                 item.delete(listener)
             }
 
-            editButton.setOnClickListener {
+            binding.editButton.setOnClickListener {
                 item.getContent(editClickListener)
             }
         }
     }
 
-    class Empty(view: View): NoteViewHolder(view)
+    class Empty(private val binding: NotesListEmptyObjectBinding) : NoteViewHolder(binding.root){
+        override fun bind(item: NoteUIModel)  = item.map(binding.noteBody)
+
+    }
 
 }

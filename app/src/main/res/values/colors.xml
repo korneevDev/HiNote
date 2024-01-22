@@ -7,7 +7,22 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#FFE082</color>
-    <color name="background_dark">#FFCC80</color>
     <color name="transientColor">#00000000</color>
+
+    <!-- Standard colors -->
+    <color name="background_yellow">#FFE790</color>
+    <color name="background_yellow_dark">#FFCC80</color>
+
+    <color name="background_red">#FE8F8F</color>
+    <color name="background_red_dark">#E02C2C</color>
+
+    <color name="background_green">#ACFE8F</color>
+    <color name="background_green_dark">#7BE02C</color>
+
+    <color name="background_blue">#8FF1FE</color>
+    <color name="background_blue_dark">#2CBFE0</color>
+
+    <color name="background_purple">#F58FFE</color>
+    <color name="background_purple_dark">#C32CE0</color>
+
 </resources>

@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 interface NoteInteractor {
     suspend fun getNoteList(): List<NoteModel>
-    suspend fun addNote(header: String, body: String)
+    suspend fun addNote(header: String, body: String, mainColor: Int, buttonsColor: Int)
     suspend fun undoDeletingNote()
-    suspend fun updateNote(id: Int, header: String, body: String)
+    suspend fun updateNote(id: Int, header: String, body: String, mainColor: Int, buttonsColor: Int)
     suspend fun removeNote(id: Int)
 
     class Base @Inject constructor(
@@ -17,11 +17,11 @@ interface NoteInteractor {
         private val currentDateTime: CurrentDateTime
     ) : NoteInteractor {
 
-        override suspend fun getNoteList(): List<NoteModel> = try{
+        override suspend fun getNoteList(): List<NoteModel> = try {
             repository.getNotesList().map {
                 it.mapToNoteModel()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             listOf(exceptionHandler.handle(e))
         }
 
@@ -29,11 +29,35 @@ interface NoteInteractor {
             repository.saveCachedNote()
         }
 
-        override suspend fun addNote(header: String, body: String) =
-            repository.saveNote(header, body, currentDateTime.getCurrentTime())
+        override suspend fun addNote(
+            header: String,
+            body: String,
+            mainColor: Int,
+            buttonsColor: Int
+        ) =
+            repository.saveNote(
+                header,
+                body,
+                currentDateTime.getCurrentTime(),
+                mainColor,
+                buttonsColor
+            )
 
-        override suspend fun updateNote(id: Int, header: String, body: String) {
-            repository.updateNote(id, header, body, currentDateTime.getCurrentTime())
+        override suspend fun updateNote(
+            id: Int,
+            header: String,
+            body: String,
+            mainColor: Int,
+            buttonsColor: Int
+        ) {
+            repository.updateNote(
+                id,
+                header,
+                body,
+                currentDateTime.getCurrentTime(),
+                mainColor,
+                buttonsColor
+            )
         }
 
         override suspend fun removeNote(id: Int) = repository.removeNote(id)

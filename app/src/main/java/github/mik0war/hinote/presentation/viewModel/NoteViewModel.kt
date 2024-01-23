@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 interface NoteViewModel : GetLiveData {
     fun showNoteList(): Job
-    fun createNote(header: String, body: String): Job
-    fun updateNote(id: Int, header: String, body: String): Job
+    fun createNote(header: String, body: String, mainColor: Int, buttonsColor: Int): Job
+    fun updateNote(id: Int, header: String, body: String, mainColor: Int, buttonsColor: Int): Job
     fun removeNote(id: Int): Job
     fun observeList(owner: LifecycleOwner, observer: Observer<List<NoteUIModel>>)
     fun undoDeleting(): Job
@@ -34,10 +34,17 @@ interface NoteViewModel : GetLiveData {
                 liveData.showNotesList(interactor.getNoteList().map { it.mapTo(dateTimeFormatter) })
             }
 
-        override fun createNote(header: String, body: String) = handle { interactor.addNote(header, body) }
+        override fun createNote(header: String, body: String, mainColor: Int, buttonsColor: Int) =
+            handle { interactor.addNote(header, body, mainColor, buttonsColor) }
 
-        override fun updateNote(id: Int, header: String, body: String) =
-            handle { interactor.updateNote(id, header, body) }
+        override fun updateNote(
+            id: Int,
+            header: String,
+            body: String,
+            mainColor: Int,
+            buttonsColor: Int
+        ) =
+            handle { interactor.updateNote(id, header, body, mainColor, buttonsColor) }
 
         override fun removeNote(id: Int) = handle { interactor.removeNote(id) }
 
@@ -54,7 +61,7 @@ interface NoteViewModel : GetLiveData {
         override fun getNotesList(): List<NoteUIModel> = liveData.getNotesList()
         override fun getDiffUtilResult() = liveData.getDiffUtilResult()
 
-        private inline fun handle(crossinline block: suspend ()-> Unit): Job =
+        private inline fun handle(crossinline block: suspend () -> Unit): Job =
             viewModelScope.launch(dispatcher) {
                 block.invoke()
                 showNoteList()

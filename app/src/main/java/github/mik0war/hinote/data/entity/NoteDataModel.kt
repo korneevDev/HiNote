@@ -8,9 +8,13 @@ data class NoteDataModel(
     private val header: String,
     private val body: String,
     private val dateTime: Long,
-    private val lastEditedDateTime: Long?
-){
+    private val lastEditedDateTime: Long?,
+    private val mainColor: Int,
+    private val buttonsColor: Int
+) {
     fun mapToNoteModel(): NoteModel =
-        NoteModel.Success(id, header, body, dateTime, lastEditedDateTime)
-    fun mapToNote(): Note = Note(header, body, dateTime, lastEditedDateTime)
+        NoteModel.Success(id, header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
+
+    fun mapToNote(): Note =
+        Note(header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
 }

@@ -1,5 +1,9 @@
 package github.mik0war.hinote.presentation.entity
 
+import android.content.res.ColorStateList
+import android.view.View
+import android.widget.ImageButton
+import github.mik0war.hinote.core.ColorResourceManager
 import github.mik0war.hinote.presentation.CustomTextView
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
@@ -20,11 +24,16 @@ abstract class NoteUIModel(
     open fun delete(listener: NoteDeleteClickListener){}
     open fun getContent(editClickListener: NoteEditClickListener){}
 
+    open fun setMainColor(mainView: View, colorProvider: ColorResourceManager){}
+    open fun setButtonsColor(viewList: List<View>, colorProvider: ColorResourceManager){}
+
     data class Success(
         private val id: Int,
         private val header: String,
         val body: String,
-        private val dateTime: String
+        private val dateTime: String,
+        private val mainColor: Int,
+        private val buttonsColor: Int
     ) : NoteUIModel(body) {
         override fun map(
             headerView: CustomTextView,
@@ -47,6 +56,21 @@ abstract class NoteUIModel(
 
         override fun getContent(editClickListener: NoteEditClickListener) {
             editClickListener.edit(Triple(id, header, body))
+        }
+
+        override fun setMainColor(mainView: View, colorProvider: ColorResourceManager) {
+            mainView.backgroundTintList = ColorStateList.valueOf(colorProvider.getColor(mainColor))
+        }
+
+        override fun setButtonsColor(viewList: List<View>, colorProvider: ColorResourceManager) {
+
+            viewList.forEach{
+                if(it is ImageButton){
+                    it.imageTintList = ColorStateList.valueOf(colorProvider.getColor(buttonsColor))
+                } else
+
+                it.backgroundTintList = ColorStateList.valueOf(colorProvider.getColor(buttonsColor))
+            }
         }
     }
 

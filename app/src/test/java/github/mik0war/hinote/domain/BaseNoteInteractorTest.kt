@@ -3,7 +3,7 @@ package github.mik0war.hinote.domain
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.data.TestNoteDAO
 import github.mik0war.hinote.core.domain.TestCurrentDateTime
-import github.mik0war.hinote.core.domain.TestResourceManager
+import github.mik0war.hinote.core.domain.TestStringResourceManager
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.data.cache.CacheDataSource
 import github.mik0war.hinote.domain.entity.NoteModel
@@ -29,7 +29,7 @@ class BaseNoteInteractorTest {
         return NoteInteractor.Base(
             repository,
             ExceptionHandler.Base(
-                TestResourceManager()
+                TestStringResourceManager()
             ),
             TestCurrentDateTime()
         )

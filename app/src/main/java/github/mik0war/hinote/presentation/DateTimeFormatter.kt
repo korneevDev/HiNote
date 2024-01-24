@@ -1,7 +1,7 @@
 package github.mik0war.hinote.presentation
 
 import github.mik0war.hinote.R
-import github.mik0war.hinote.core.ResourceManager
+import github.mik0war.hinote.core.StringResourceManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -29,11 +29,11 @@ interface DateTimeFormatter {
     }
 
     class LastEditedWithLabel @Inject constructor(
-        private val resourceManager: ResourceManager
+        private val stringResourceManager: StringResourceManager
         ): Abstract() {
         override fun formatDate(dateTime: Long, lastEditedDateTime: Long?) =
             (if (lastEditedDateTime == null)
-                "" else resourceManager.getString(R.string.editedNoteMessage)) + " " +
+                "" else stringResourceManager.getString(R.string.editedNoteMessage)) + " " +
                     formatDate("hh:mm:ss dd-MM",lastEditedDateTime ?: dateTime)
     }
 }

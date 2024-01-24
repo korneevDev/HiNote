@@ -3,7 +3,7 @@ package github.mik0war.hinote.presentation
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.data.TestNoteDAO
 import github.mik0war.hinote.core.domain.TestCurrentDateTime
-import github.mik0war.hinote.core.domain.TestResourceManager
+import github.mik0war.hinote.core.domain.TestStringResourceManager
 import github.mik0war.hinote.core.presentation.TestDateFormatter
 import github.mik0war.hinote.core.presentation.TestNoteLiveData
 import github.mik0war.hinote.data.NoteRepository
@@ -34,7 +34,7 @@ class BaseViewModelTest {
         val interactor = NoteInteractor.Base(
             repository,
             ExceptionHandler.Base(
-                TestResourceManager()
+                TestStringResourceManager()
             ),
             TestCurrentDateTime(),
         )

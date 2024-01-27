@@ -49,9 +49,9 @@ class BaseNoteInteractorTest {
     fun saving_note_test()= runTest() {
         val interactor = initInteractor(testScheduler)
         val expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null)
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null, 0, 0)
         )
-        interactor.addNote("TestHeader 1", "TestBody 1")
+        interactor.addNote("TestHeader 1", "TestBody 1", 0, 0)
 
         val actual = interactor.getNoteList()
 
@@ -63,9 +63,9 @@ class BaseNoteInteractorTest {
     fun removing_note_test()= runTest {
         val interactor = initInteractor(testScheduler)
         var expected: List<NoteModel> = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null)
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null, 0, 0)
         )
-        interactor.addNote("TestHeader 1", "TestBody 1")
+        interactor.addNote("TestHeader 1", "TestBody 1", 0, 0)
 
         var actual = interactor.getNoteList()
 
@@ -80,7 +80,7 @@ class BaseNoteInteractorTest {
         assertEquals(1, actual.size)
 
         expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null)
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null, 0, 0)
         )
         interactor.undoDeletingNote()
         actual = interactor.getNoteList()
@@ -93,24 +93,24 @@ class BaseNoteInteractorTest {
     fun saving_multiple_notes_test() = runTest {
         val interactor = initInteractor(testScheduler)
         val expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null),
-            NoteModel.Success(0, "TestHeader 2", "TestBody 2", 1, null),
-            NoteModel.Success(0, "TestHeader 3", "TestBody 3", 2, null)
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null, 0, 0),
+            NoteModel.Success(0, "TestHeader 2", "TestBody 2", 1, null, 0, 0),
+            NoteModel.Success(0, "TestHeader 3", "TestBody 3", 2, null, 0, 0)
         )
-        interactor.addNote("TestHeader 1", "TestBody 1")
+        interactor.addNote("TestHeader 1", "TestBody 1", 0, 0)
 
         var actual = interactor.getNoteList()
 
         assertEquals(expected[0], actual[0])
 
-        interactor.addNote("TestHeader 2", "TestBody 2")
+        interactor.addNote("TestHeader 2", "TestBody 2", 0, 0)
 
         actual = interactor.getNoteList()
 
         for(i: Int in actual.indices)
             assertEquals(expected[i], actual[i])
 
-        interactor.addNote("TestHeader 3", "TestBody 3")
+        interactor.addNote("TestHeader 3", "TestBody 3", 0, 0)
 
         actual = interactor.getNoteList()
 
@@ -122,19 +122,19 @@ class BaseNoteInteractorTest {
     fun updating_note_test() = runTest {
         val interactor = initInteractor(testScheduler)
         var expected = listOf(
-            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null)
+            NoteModel.Success(0, "TestHeader 1", "TestBody 1", 0, null, 0, 0)
         )
-        interactor.addNote("TestHeader 1", "TestBody 1")
+        interactor.addNote("TestHeader 1", "TestBody 1", 0, 0)
 
         var actual = interactor.getNoteList()
 
         assertEquals(expected[0], actual[0])
 
         expected = listOf(
-            NoteModel.Success(0, "NewTestHeader 1", "NewTestBody 1", 0, 1)
+            NoteModel.Success(0, "NewTestHeader 1", "NewTestBody 1", 0, 1, 0, 0)
         )
 
-        interactor.updateNote(0, "NewTestHeader 1", "NewTestBody 1")
+        interactor.updateNote(0, "NewTestHeader 1", "NewTestBody 1", 0, 0)
 
         actual = interactor.getNoteList()
 

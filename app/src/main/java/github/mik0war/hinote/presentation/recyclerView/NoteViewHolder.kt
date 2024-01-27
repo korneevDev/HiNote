@@ -1,9 +1,8 @@
 package github.mik0war.hinote.presentation.recyclerView
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import github.mik0war.hinote.core.ColorResourceManager
 import github.mik0war.hinote.databinding.NotesListEmptyObjectBinding
 import github.mik0war.hinote.databinding.NotesListObjectBinding
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
@@ -17,10 +16,14 @@ abstract class NoteViewHolder(
     class Base(
         private val listener: NoteDeleteClickListener,
         private val editClickListener: NoteEditClickListener,
-        private val binding: NotesListObjectBinding
+        private val binding: NotesListObjectBinding,
+        private val colorProvider: ColorResourceManager
     ) : NoteViewHolder(binding.root) {
         override fun bind(item: NoteUIModel) {
-            itemView.backgroundTintList = ColorStateList.valueOf(Color.BLUE)
+
+            item.setMainColor(binding.root, colorProvider)
+            item.setButtonsColor(listOf(binding.editButton, binding.deleteButton, binding.line), colorProvider)
+
             item.map(binding.noteHeader, binding.noteBody, binding.noteDateTime)
 
             binding.deleteButton.setOnClickListener {

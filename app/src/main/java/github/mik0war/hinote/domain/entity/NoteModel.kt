@@ -10,17 +10,21 @@ sealed interface NoteModel {
         private val header: String,
         private val body: String,
         private var dateTime: Long,
-        private val lastEditedDateTime: Long?
+        private val lastEditedDateTime: Long?,
+        private val mainColor: Int,
+        private val buttonsColor: Int
     ) : NoteModel {
         override fun mapTo(dateTimeFormatter: DateTimeFormatter) =
-            NoteUIModel.Success(id, header, body,
-                dateTimeFormatter.formatDate(dateTime, lastEditedDateTime))
+            NoteUIModel.Success(
+                id, header, body,
+                dateTimeFormatter.formatDate(dateTime, lastEditedDateTime), mainColor, buttonsColor
+            )
     }
 
     data class Failed(
-        private val error_message: String
+        private val errorMessage: String
     ) : NoteModel {
-        override fun mapTo(dateTimeFormatter: DateTimeFormatter) = NoteUIModel.Failed(error_message)
+        override fun mapTo(dateTimeFormatter: DateTimeFormatter) = NoteUIModel.Failed(errorMessage)
     }
 }
 

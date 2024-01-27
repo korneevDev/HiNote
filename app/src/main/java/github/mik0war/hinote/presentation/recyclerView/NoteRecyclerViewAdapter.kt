@@ -3,6 +3,7 @@ package github.mik0war.hinote.presentation.recyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import github.mik0war.hinote.core.ColorResourceManager
 import github.mik0war.hinote.databinding.NotesListEmptyObjectBinding
 import github.mik0war.hinote.databinding.NotesListObjectBinding
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
@@ -13,7 +14,8 @@ import github.mik0war.hinote.presentation.viewModel.GetLiveData
 class NoteRecyclerViewAdapter(
     private val notesLiveData: GetLiveData,
     private val deleteClickListener: NoteDeleteClickListener,
-    private val editClickListener: NoteEditClickListener
+    private val editClickListener: NoteEditClickListener,
+    private val colorProvider: ColorResourceManager
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
     fun update() {
@@ -30,7 +32,8 @@ class NoteRecyclerViewAdapter(
         else NoteViewHolder.Base(
             deleteClickListener,
             editClickListener,
-            NotesListObjectBinding.inflate(LayoutInflater.from(parent.context))
+            NotesListObjectBinding.inflate(LayoutInflater.from(parent.context)),
+            colorProvider
         )
     }
 

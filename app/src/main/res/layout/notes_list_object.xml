@@ -10,8 +10,9 @@
     android:layout_marginHorizontal="@dimen/_16dp"
     android:layout_marginTop="@dimen/_16dp"
     android:padding="@dimen/_4dp"
-    android:backgroundTint="@color/background_yellow"
+    tools:backgroundTint="@color/background_yellow"
     >
+
     <github.mik0war.hinote.presentation.CustomTextViewImpl
         android:id="@+id/noteHeader"
         android:layout_width="match_parent"
@@ -24,9 +25,10 @@
         android:textColor="@color/black"/>
 
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@color/background_yellow_dark"/>
+        tools:background="@color/background_yellow_dark"/>
 
         <github.mik0war.hinote.presentation.CustomTextViewImpl
             android:id="@+id/noteBody"

@@ -1,5 +1,6 @@
 package github.mik0war.hinote.presentation.entity
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageButton
@@ -10,22 +11,27 @@ import github.mik0war.hinote.presentation.NoteEditClickListener
 
 abstract class NoteUIModel(
     private val text: String,
-){
+) {
     fun body() = text
-    open fun map(headerView: CustomTextView, bodyView: CustomTextView, dateTimeView: CustomTextView) {
+    open fun map(
+        headerView: CustomTextView,
+        bodyView: CustomTextView,
+        dateTimeView: CustomTextView
+    ) {
         map(bodyView)
     }
-    fun map(bodyView: CustomTextView){
+
+    fun map(bodyView: CustomTextView) {
         bodyView.show(text)
     }
 
     open fun same(noteUIModel: NoteUIModel) = false
     open fun matches(id: Int): Boolean = false
-    open fun delete(listener: NoteDeleteClickListener){}
-    open fun getContent(editClickListener: NoteEditClickListener){}
+    open fun delete(listener: NoteDeleteClickListener) {}
+    open fun getContent(editClickListener: NoteEditClickListener) {}
 
-    open fun setMainColor(mainView: View, colorProvider: ColorResourceManager){}
-    open fun setButtonsColor(viewList: List<View>, colorProvider: ColorResourceManager){}
+    open fun setMainColor(mainView: View, colorProvider: ColorResourceManager) {}
+    open fun setButtonsColor(viewList: List<View>, colorProvider: ColorResourceManager) {}
 
     data class Success(
         private val id: Int,
@@ -62,14 +68,14 @@ abstract class NoteUIModel(
             mainView.backgroundTintList = ColorStateList.valueOf(colorProvider.getColor(mainColor))
         }
 
+        @SuppressLint("SuspiciousIndentation")
         override fun setButtonsColor(viewList: List<View>, colorProvider: ColorResourceManager) {
 
-            viewList.forEach{
-                if(it is ImageButton){
+            viewList.forEach {
+                if (it is ImageButton) {
                     it.imageTintList = ColorStateList.valueOf(colorProvider.getColor(buttonsColor))
-                } else
-
-                it.backgroundTintList = ColorStateList.valueOf(colorProvider.getColor(buttonsColor))
+                }
+                it.setBackgroundColor(colorProvider.getColor(buttonsColor))
             }
         }
     }

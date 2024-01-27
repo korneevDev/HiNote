@@ -71,7 +71,7 @@ interface CacheDataSource {
 
         override suspend fun remove(id: Int): NoteDataModel {
             val note = noteDAO.getNoteByID(id)
-            noteDAO.delete(note)
+            noteDAO.delete(id)
 
             return mapper.map(
                 note.id,

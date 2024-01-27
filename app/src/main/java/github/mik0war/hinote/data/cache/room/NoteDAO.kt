@@ -1,7 +1,6 @@
 package github.mik0war.hinote.data.cache.room
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -57,7 +56,7 @@ interface NoteDAO {
     @Insert
     fun createNote(note: Note)
 
-    @Delete
-    fun delete(note: Note)
+    @Query("DELETE FROM note WHERE id =:id")
+    fun delete(id: Int)
 
 }

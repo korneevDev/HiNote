@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import github.mik0war.hinote.R
 import github.mik0war.hinote.databinding.FragmentCreateNoteBinding
-import github.mik0war.hinote.presentation.NotesActivity
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
+@AndroidEntryPoint
 class NoteCreateFragment : Fragment() {
-    private lateinit var viewModel: NoteViewModel
+    private val viewModel: NoteViewModel.Base by viewModels()
     private var _binding: FragmentCreateNoteBinding? = null
     private val binding: FragmentCreateNoteBinding
         get() = _binding!!
@@ -23,11 +25,6 @@ class NoteCreateFragment : Fragment() {
     ): View =
         FragmentCreateNoteBinding.inflate(inflater, container, false)
             .also { _binding = it }.root
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = (requireActivity() as NotesActivity).viewModel
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

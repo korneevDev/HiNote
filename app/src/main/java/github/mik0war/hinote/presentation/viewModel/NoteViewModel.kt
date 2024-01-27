@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import github.mik0war.hinote.di.core.MainDispatcher
 import github.mik0war.hinote.domain.NoteInteractor
 import github.mik0war.hinote.presentation.DateTimeFormatter
@@ -23,6 +24,7 @@ interface NoteViewModel : GetLiveData {
     fun undoDeleting(): Job
     fun changeDateTimeFormatter(dateTimeFormatter: DateTimeFormatter)
 
+    @HiltViewModel
     class Base @Inject constructor(
         private val interactor: NoteInteractor,
         private val liveData: NoteLiveData,

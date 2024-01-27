@@ -7,15 +7,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
-import github.mik0war.hinote.NotesApp
+import dagger.hilt.android.AndroidEntryPoint
 import github.mik0war.hinote.R
-import github.mik0war.hinote.presentation.viewModel.NoteViewModel
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class NotesActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var viewModel : NoteViewModel
 
     private val navController by lazy {
             (supportFragmentManager
@@ -25,7 +21,6 @@ class NotesActivity : AppCompatActivity() {
                 .navController
     }
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as NotesApp).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val appBar = findViewById<Toolbar>(R.id.appBar)

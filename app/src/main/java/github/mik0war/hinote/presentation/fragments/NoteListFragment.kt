@@ -5,29 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import github.mik0war.hinote.R
 import github.mik0war.hinote.core.ColorResourceManager
 import github.mik0war.hinote.presentation.NoteDeleteClickListener
 import github.mik0war.hinote.presentation.NoteEditClickListener
-import github.mik0war.hinote.presentation.NotesActivity
 import github.mik0war.hinote.presentation.recyclerView.NoteRecyclerViewAdapter
 import github.mik0war.hinote.presentation.viewModel.NoteViewModel
 
+@AndroidEntryPoint
 class NoteListFragment : Fragment() {
-    private lateinit var viewModel: NoteViewModel
+    private val viewModel: NoteViewModel.Base by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_note_list, container, false)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = (requireActivity() as NotesActivity).viewModel
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

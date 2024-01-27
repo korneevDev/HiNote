@@ -10,14 +10,15 @@ import javax.inject.Inject
 interface CacheDataSource {
     suspend fun getNotesList(): List<NoteDataModel>
     suspend fun save(
-        header: String, body: String, dateTime: Long,
-        mainColor: Int,
-        buttonsColor: Int
+        header: String, body: String, dateTime: Long, mainColor: Int, buttonsColor: Int
     )
 
     suspend fun save(note: NoteDataModel)
     suspend fun update(
-        id: Int, newHeader: String, newBody: String, newDateTime: Long,
+        id: Int,
+        newHeader: String,
+        newBody: String,
+        newDateTime: Long,
         newMainColor: Int,
         newButtonsColor: Int
     )
@@ -25,8 +26,7 @@ interface CacheDataSource {
     suspend fun remove(id: Int): NoteDataModel
 
     class Base @Inject constructor(
-        private val mapper: MapperParametrised<NoteDataModel>,
-        private val noteDAO: NoteDAO
+        private val mapper: MapperParametrised<NoteDataModel>, private val noteDAO: NoteDAO
     ) : CacheDataSource {
         override suspend fun getNotesList(): List<NoteDataModel> {
             val list = noteDAO.getAllOrderedByLastEditedTime().map {
@@ -45,9 +45,7 @@ interface CacheDataSource {
 
 
         override suspend fun save(
-            header: String, body: String, dateTime: Long,
-            mainColor: Int,
-            buttonsColor: Int
+            header: String, body: String, dateTime: Long, mainColor: Int, buttonsColor: Int
         ) {
             noteDAO.createNote(Note(header, body, dateTime, null, mainColor, buttonsColor))
         }
@@ -64,12 +62,11 @@ interface CacheDataSource {
             newMainColor: Int,
             newButtonsColor: Int
         ) {
-            val note = noteDAO.getNoteByID(id)
-            if (note.header != newHeader || note.body != newBody) {
-                val newNote =
-                    note.update(newHeader, newBody, newDateTime, newMainColor, newButtonsColor)
-                noteDAO.update(newNote)
-            }
+            noteDAO.update(
+                id, newHeader, newBody,
+                newMainColor, newButtonsColor,
+                newDateTime
+            )
         }
 
         override suspend fun remove(id: Int): NoteDataModel {

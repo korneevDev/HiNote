@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.data.cache.CacheDataSource
+import github.mik0war.hinote.data.cache.room.Note
 import github.mik0war.hinote.data.entity.NoteDataModel
 
 @Module
@@ -18,4 +19,6 @@ abstract class BaseData {
     abstract fun provideCacheDataSource(dataSource: CacheDataSource.Base): CacheDataSource
     @Binds
     abstract fun provideMapper(mapper: MapperParametrised.ToDataModel): MapperParametrised<NoteDataModel>
+    @Binds
+    abstract fun bindMapperToDB(mapper: MapperParametrised.ToNoteDB) : MapperParametrised<Note>
 }

@@ -26,7 +26,9 @@ interface CacheDataSource {
     suspend fun remove(id: Int): NoteDataModel
 
     class Base @Inject constructor(
-        private val mapper: MapperParametrised<NoteDataModel>, private val noteDAO: NoteDAO
+        private val mapper: MapperParametrised<NoteDataModel>,
+        private val noteDAO: NoteDAO,
+        private val mapperToDB: MapperParametrised<Note>
     ) : CacheDataSource {
         override suspend fun getNotesList(): List<NoteDataModel> {
             val list = noteDAO.getAllOrderedByLastEditedTime().map {
@@ -51,7 +53,7 @@ interface CacheDataSource {
         }
 
         override suspend fun save(note: NoteDataModel) {
-            noteDAO.createNote(note.mapToNote())
+            noteDAO.createNote(note.map(mapperToDB))
         }
 
         override suspend fun update(

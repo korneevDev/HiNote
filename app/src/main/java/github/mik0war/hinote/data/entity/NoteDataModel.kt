@@ -1,7 +1,6 @@
 package github.mik0war.hinote.data.entity
 
-import github.mik0war.hinote.data.cache.room.Note
-import github.mik0war.hinote.domain.entity.NoteModel
+import github.mik0war.hinote.core.MapperParametrised
 
 data class NoteDataModel(
     private val id: Int,
@@ -12,9 +11,7 @@ data class NoteDataModel(
     private val mainColor: Int,
     private val buttonsColor: Int
 ) {
-    fun mapToNoteModel(): NoteModel =
-        NoteModel.Success(id, header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
 
-    fun mapToNote(): Note =
-        Note(header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
+    fun <T> map(mapper: MapperParametrised<T>) =
+        mapper.map(id, header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
 }

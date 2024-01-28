@@ -1,5 +1,6 @@
 package github.mik0war.hinote.domain
 
+import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.data.NoteRepository
 import github.mik0war.hinote.domain.entity.NoteModel
 import javax.inject.Inject
@@ -14,12 +15,13 @@ interface NoteInteractor {
     class Base @Inject constructor(
         private val repository: NoteRepository,
         private val exceptionHandler: ExceptionHandler,
-        private val currentDateTime: CurrentDateTime
+        private val currentDateTime: CurrentDateTime,
+        private val mapperToNoteModel: MapperParametrised<NoteModel>
     ) : NoteInteractor {
 
         override suspend fun getNoteList(): List<NoteModel> = try {
             repository.getNotesList().map {
-                it.mapToNoteModel()
+                it.map(mapperToNoteModel)
             }
         } catch (e: Exception) {
             listOf(exceptionHandler.handle(e))

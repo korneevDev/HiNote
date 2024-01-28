@@ -15,20 +15,4 @@ data class Note(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-
-    fun update(
-        newHeader: String,
-        newBody: String,
-        newDateTime: Long,
-        newMainColor: Int,
-        newButtonsColor: Int
-    ): Note =
-        Note(
-            newHeader,
-            newBody,
-            dateTime,
-            newDateTime,
-            newMainColor,
-            newButtonsColor
-        ).also { it.id = this.id }
 }

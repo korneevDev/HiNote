@@ -10,8 +10,7 @@ interface MapperParametrised<T> {
         id: Int,
         header: String,
         body: String,
-        dateTime: Long,
-        lastEditedDateTime: Long?,
+        time: TimeModel,
         mainColor: Int,
         buttonsColor: Int
     ): T
@@ -21,12 +20,11 @@ interface MapperParametrised<T> {
             id: Int,
             header: String,
             body: String,
-            dateTime: Long,
-            lastEditedDateTime: Long?,
+            time: TimeModel,
             mainColor: Int,
             buttonsColor: Int
         ) =
-            NoteDataModel(id, header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor)
+            NoteDataModel(id, header, body, time, mainColor, buttonsColor)
     }
 
     class ToNoteModel @Inject constructor() : MapperParametrised<NoteModel> {
@@ -34,16 +32,14 @@ interface MapperParametrised<T> {
             id: Int,
             header: String,
             body: String,
-            dateTime: Long,
-            lastEditedDateTime: Long?,
+            time: TimeModel,
             mainColor: Int,
             buttonsColor: Int
         ) = NoteModel.Success(
             id,
             header,
             body,
-            dateTime,
-            lastEditedDateTime,
+            time,
             mainColor,
             buttonsColor
         )
@@ -54,13 +50,13 @@ interface MapperParametrised<T> {
             id: Int,
             header: String,
             body: String,
-            dateTime: Long,
-            lastEditedDateTime: Long?,
+            time: TimeModel,
             mainColor: Int,
             buttonsColor: Int
-        ) = Note(header, body, dateTime, lastEditedDateTime, mainColor, buttonsColor).also {
-            it.id = id
-        }
+        ) = Note(header, body, mainColor, buttonsColor).also {
+                it.id = id
+            }
 
     }
+
 }

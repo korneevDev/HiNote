@@ -1,8 +1,11 @@
 package github.mik0war.hinote.data.cache
 
 import github.mik0war.hinote.core.MapperParametrised
+import github.mik0war.hinote.core.MapperTime
+import github.mik0war.hinote.core.TimeModel
 import github.mik0war.hinote.data.cache.room.Note
 import github.mik0war.hinote.data.cache.room.NoteDAO
+import github.mik0war.hinote.data.cache.room.Time
 import github.mik0war.hinote.data.entity.NoteDataModel
 import github.mik0war.hinote.domain.NoNotesException
 import javax.inject.Inject
@@ -28,19 +31,13 @@ interface CacheDataSource {
     class Base @Inject constructor(
         private val mapper: MapperParametrised<NoteDataModel>,
         private val noteDAO: NoteDAO,
-        private val mapperToDB: MapperParametrised<Note>
+        private val mapperToDB: MapperParametrised<Note>,
+        private val timeMapper: MapperTime<TimeModel>,
+        private val timeMapperToDB: MapperTime<Time>
     ) : CacheDataSource {
         override suspend fun getNotesList(): List<NoteDataModel> {
             val list = noteDAO.getAllOrderedByLastEditedTime().map {
-                mapper.map(
-                    it.id,
-                    it.header,
-                    it.body,
-                    it.dateTime,
-                    it.lastEditedDateTime,
-                    it.mainColor,
-                    it.buttonsColor
-                )
+                it.key.map(mapper, it.value.map(timeMapper))
             }
             return list.ifEmpty { throw NoNotesException() }
         }
@@ -49,11 +46,13 @@ interface CacheDataSource {
         override suspend fun save(
             header: String, body: String, dateTime: Long, mainColor: Int, buttonsColor: Int
         ) {
-            noteDAO.createNote(Note(header, body, dateTime, null, mainColor, buttonsColor))
+            val id = noteDAO.createNote(Note(header, body, mainColor, buttonsColor))
+            noteDAO.createTime(Time(dateTime, id.toInt()))
         }
 
         override suspend fun save(note: NoteDataModel) {
             noteDAO.createNote(note.map(mapperToDB))
+            noteDAO.createTime(note.mapTime(timeMapperToDB))
         }
 
         override suspend fun update(
@@ -64,26 +63,20 @@ interface CacheDataSource {
             newMainColor: Int,
             newButtonsColor: Int
         ) {
-            noteDAO.update(
+            noteDAO.updateNote(
                 id, newHeader, newBody,
-                newMainColor, newButtonsColor,
-                newDateTime
+                newMainColor, newButtonsColor
             )
+            noteDAO.updateTime(id, newDateTime)
         }
 
         override suspend fun remove(id: Int): NoteDataModel {
-            val note = noteDAO.getNoteByID(id)
+            val noteWithTime = noteDAO.getNoteByID(id)
             noteDAO.delete(id)
-
-            return mapper.map(
-                note.id,
-                note.header,
-                note.body,
-                note.dateTime,
-                note.lastEditedDateTime,
-                note.mainColor,
-                note.buttonsColor
-            )
+            noteWithTime.entries.forEach {
+                return it.key.map(mapper, it.value.map(timeMapper))
+            }
+            return NoteDataModel(0, "", "", TimeModel(0L, 0), 0, 0)
         }
     }
 }

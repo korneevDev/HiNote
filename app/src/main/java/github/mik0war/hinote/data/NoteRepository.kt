@@ -27,9 +27,9 @@ interface NoteRepository {
 
     class Base @Inject constructor(
         private val cacheDataSource: CacheDataSource,
+        private val mutableCacheDataSource: MutableCacheDataSource<NoteDataModel>,
         @IODispatcher private val dispatcher: CoroutineDispatcher
     ) : NoteRepository {
-        private var cachedNote: NoteDataModel? = null
         override suspend fun getNotesList(): List<NoteDataModel> =
             handle { cacheDataSource.getNotesList() }
 
@@ -41,8 +41,7 @@ interface NoteRepository {
             handle { cacheDataSource.save(header, body, dateTime, mainColor, buttonsColor) }
 
         override suspend fun saveCachedNote() {
-            handle { cacheDataSource.save(cachedNote!!) }
-            cachedNote = null
+            handle { cacheDataSource.save(mutableCacheDataSource.getData()) }
         }
 
         override suspend fun updateNote(
@@ -52,7 +51,7 @@ interface NoteRepository {
             handle { cacheDataSource.update(id, header, body, dateTime, mainColor, buttonsColor) }
 
         override suspend fun removeNote(id: Int) {
-            cachedNote = handle { cacheDataSource.remove(id) }
+            handle { cacheDataSource.remove(id, mutableCacheDataSource) }
         }
 
         private suspend inline fun <T> handle(crossinline block: suspend () -> T) =

@@ -64,4 +64,7 @@ interface NoteDAO {
     @Query("DELETE FROM note WHERE id =:id")
     fun delete(id: Int)
 
+    @Query("DELETE FROM note_creation_time WHERE note_id =:id")
+    fun deleteTime(id: Int)
+
 }

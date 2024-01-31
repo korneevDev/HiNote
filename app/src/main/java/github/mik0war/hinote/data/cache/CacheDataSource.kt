@@ -3,6 +3,7 @@ package github.mik0war.hinote.data.cache
 import github.mik0war.hinote.core.MapperParametrised
 import github.mik0war.hinote.core.MapperTime
 import github.mik0war.hinote.core.TimeModel
+import github.mik0war.hinote.data.MutableCacheDataSource
 import github.mik0war.hinote.data.cache.room.Note
 import github.mik0war.hinote.data.cache.room.NoteDAO
 import github.mik0war.hinote.data.cache.room.Time
@@ -26,7 +27,7 @@ interface CacheDataSource {
         newButtonsColor: Int
     )
 
-    suspend fun remove(id: Int): NoteDataModel
+    suspend fun remove(id: Int, mutableCacheDataSource: MutableCacheDataSource<NoteDataModel>)
 
     class Base @Inject constructor(
         private val mapper: MapperParametrised<NoteDataModel>,
@@ -70,13 +71,17 @@ interface CacheDataSource {
             noteDAO.updateTime(id, newDateTime)
         }
 
-        override suspend fun remove(id: Int): NoteDataModel {
+        override suspend fun remove(
+            id: Int,
+            mutableCacheDataSource: MutableCacheDataSource<NoteDataModel>
+        ) {
             val noteWithTime = noteDAO.getNoteByID(id)
             noteDAO.delete(id)
+            noteDAO.deleteTime(id)
+
             noteWithTime.entries.forEach {
-                return it.key.map(mapper, it.value.map(timeMapper))
+                mutableCacheDataSource.cache(it.key.map(mapper, it.value.map(timeMapper)))
             }
-            return NoteDataModel(0, "", "", TimeModel(0L, 0), 0, 0)
         }
     }
 }

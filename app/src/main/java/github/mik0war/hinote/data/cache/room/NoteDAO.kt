@@ -17,7 +17,7 @@ interface NoteDAO {
                 "ELSE createdTime " +
                 "END DESC"
     )
-    fun getAllOrderedByLastEditedTime(): Map<Note, Time>
+    suspend fun getAllOrderedByLastEditedTime(): Map<Note, Time>
 
     @Query(
         "SELECT * " +
@@ -25,7 +25,7 @@ interface NoteDAO {
                 "ON note.id = note_creation_time.note_id " +
                 "WHERE note.id=:id"
     )
-    fun getNoteByID(id: Int): Map<Note, Time>
+    suspend fun getNoteByID(id: Int): Map<Note, Time>
 
     @Query("UPDATE note " +
             "SET " +
@@ -38,7 +38,7 @@ interface NoteDAO {
                     "Header <> :newHeader or " +
                     "MainColor <> :newMainColor or " +
                     "ButtonsColor <> :newButtonsColor); ")
-    fun updateNote(
+    suspend fun updateNote(
         noteId: Int,
         newHeader: String,
         newText: String,
@@ -50,21 +50,21 @@ interface NoteDAO {
             "SET " +
             "LastEditedDateTime = :lastEditedTime " +
             "WHERE note_id = :noteId")
-    fun updateTime(
+    suspend fun updateTime(
         noteId: Int,
         lastEditedTime: Long
     )
 
     @Insert
-    fun createNote(note: Note): Long
+    suspend fun createNote(note: Note): Long
 
     @Insert
-    fun createTime(time: Time): Long
+    suspend fun createTime(time: Time): Long
 
     @Query("DELETE FROM note WHERE id =:id")
-    fun delete(id: Int)
+    suspend fun delete(id: Int)
 
     @Query("DELETE FROM note_creation_time WHERE note_id =:id")
-    fun deleteTime(id: Int)
+    suspend fun deleteTime(id: Int)
 
 }
